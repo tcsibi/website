@@ -1,0 +1,509 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+<script> 
+/*------------------------------------------------------------------------------ 
+Copyright (c) 2011 Antoine Santo Aka NoNameNo
+
+This File is part of the CODEF project.
+
+More info : http://codef.santo.fr
+Demo gallery http://www.wab.com
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+------------------------------------------------------------------------------*/
+</script>
+<script type="text/javascript" src="http://codef.santo.fr/codef/codef_core.js"></script>
+<script type="text/javascript" src="http://codef.santo.fr/codef/codef_scrolltext.js"></script>
+<script type="text/javascript" src="http://wab.com/screens/496/codef/three.min.js"></script>
+<script type="text/javascript" src="http://wab.com/screens/496/codef/player.js"></script>
+<script type="text/javascript" src="http://wab.com/screens/496/codef/ft2.js"></script>
+<script type="text/javascript">
+ 
+/*
+ ========================================================
+
+          _/_/_/  _/                  _/
+       _/        _/_/_/    _/  _/_/        _/_/_/
+      _/        _/    _/  _/_/      _/  _/_/
+     _/        _/    _/  _/        _/      _/_/
+      _/_/_/  _/    _/  _/        _/  _/_/_/         
+
+ ========================================================
+  Skid Row - Worms Reloaded. A demo by Chris/Codef 	
+ ========================================================
+*/
+
+///////////  Webtro relative path ///////////////
+var basepath = "http://wab.com/screens/496/" ;
+////////////////////////////////////////////////
+
+Math.radians = function(deg){
+ return deg * (Math.PI/180);
+}
+
+var logo = new image(basepath +'logo.png');
+var font = new image(basepath +'font.png');
+           
+var text = "      SKID ROW - THE LEADING FORCE!  PRESENTS:       -- WORMS RELOADED --       FROM        -- TEAM17 --                RELEASED ON 25 AUGUST 2010!                    GREETINGS TO:                   UNLEASHED - TINYISO - GENESIS - POSTMORTEM - REDIKAL - BREWERS - FAIRLIGHT - CRUDE - SHOCK - REUNION - RG - BACKLASH - OUTLAWS AND VACE                        INTRO CREATED BY ELECTRIC DRUGGIES         CODED BY 0X90 AND 4PT        LOGO BY ILLUSIONMAKER          MUSIC BY MICHU          FONT BY SECTOR 9          REMAKE BY CHRISTIAN MURTAS WITH CODEF FRAMEWORK AND WEBDEFF EDITOR                                          ";
+
+var currLoaded = 0 ;
+var allLoaded = 1;
+
+var scrolltexta;
+
+var fast2 = new Modplayer();
+var loadSong = 0;
+
+
+function inc_cur() {
+    currLoaded++;
+}
+
+var mycanvas;
+var mycanvasLogo;
+var mycanvasFont;
+var	mycanvasRaster;
+var	mycanvasRasterApp;
+var	mycanvasRasterApp2;
+
+var GL_Canvas;
+var scene = new THREE.Scene();
+var texture;
+var camera;
+var cylinder;
+var cubeSrGroup = new THREE.Object3D();
+
+var fadeTabTmp = [0,0.04,0.08,0.12,0.16,0.2,0.24,0.28,0.32,0.36,0.4,0.44,0.48,0.52,0.56,0.6,0.64,0.68,0.72,0.76,0.8,0.84,0.88,0.92,0.96,1];
+var fadeTab = new Array();
+fadeTab = fadeTabTmp.concat(fadeTab);
+fadeTab =  fadeTab.concat(fadeTabTmp.reverse()); 
+var fadeIdx=0;
+logo.img.onload = function() { inc_cur(); }
+font.img.onload = function() { inc_cur(); }
+
+
+var cubeSr = [
+	//////// FRONT ////////
+	{x:	  0, y:  0, z:10}, //P0 Front
+	{x:	-10, y: 10, z:10}, //P1
+	{x:  10, y: 10, z:10}, //P2
+	{x:  10, y:-10, z:10}, //P3
+	{x: -10, y:-10, z:10}, //P4
+	/// TOP /////////
+	{x:   0, y: 10, z:0}, //P0 Top 5
+	{x:  10, y: 10, z:-10}, //P3 Top  6
+	{x: -10, y: 10, z:-10}, //P4 Top  7
+	/// BOTTOM /////////
+	{x:   0, y: -10, z:0}, //P0 Top 8
+	{x:  10, y: -10, z:-10}, //P3 Top  9
+	{x: -10, y: -10, z:-10}, //P4 Top  10
+///////// BACK ///////////	
+  {x:	  0, y:  0, z:-10}, //P0 Back 11
+ ////////RIGHT ////////////////////
+  {x:	 10, y:  0, z:0}, //P0 right p12
+   ////////LEFT ////////////////////
+  {x:	 -10, y:  0, z:0}, //P0 left p13
+];
+
+var cubeSrObj = [ 
+        {p1:0, p2:1, p3:2, params:new THREE.MeshLambertMaterial({ color: 0x550055, transparent:true, opacity:0.6, side: THREE.DoubleSide})},
+        {p1:0, p2:2, p3:3, params:new THREE.MeshLambertMaterial({ color: 0xffffff, transparent:true, opacity:0.6, side: THREE.DoubleSide})},
+        {p1:0, p2:3, p3:4, params:new THREE.MeshLambertMaterial({ color: 0x550055, transparent:true, opacity:0.6, side: THREE.DoubleSide})},
+        {p1:0, p2:4, p3:1, params:new THREE.MeshLambertMaterial({ color: 0xffffff, transparent:true, opacity:0.6, side: THREE.DoubleSide})},
+            
+        {p1:5, p2:1, p3:2, params:new THREE.MeshLambertMaterial({ color: 0xffffff, transparent: true, opacity:0.6, side: THREE.DoubleSide})},
+        {p1:5, p2:2, p3:6, params:new THREE.MeshLambertMaterial({ color: 0x550055, transparent: true, opacity:0.6, side: THREE.DoubleSide})},
+        {p1:5, p2:6, p3:7, params:new THREE.MeshLambertMaterial({ color: 0xffffff, transparent: true, opacity:0.6, side: THREE.DoubleSide})},
+        {p1:5, p2:7, p3:1, params:new THREE.MeshLambertMaterial({ color: 0x550055, transparent: true, opacity:0.6, side: THREE.DoubleSide})},
+        
+        {p1:8, p2:3, p3:4, params:new THREE.MeshLambertMaterial({ color: 0xffffff, transparent: true, opacity:0.6, side: THREE.DoubleSide})},
+        {p1:8, p2:9, p3:3, params:new THREE.MeshLambertMaterial({ color: 0x550055, transparent: true, opacity:0.6, side: THREE.DoubleSide})},
+        {p1:8, p2:9, p3:10, params:new THREE.MeshLambertMaterial({ color: 0xffffff, transparent: true, opacity:0.6, side: THREE.DoubleSide})},
+        {p1:8, p2:4, p3:10, params:new THREE.MeshLambertMaterial({ color: 0x550055, transparent: true, opacity:0.6, side: THREE.DoubleSide})},
+        
+        {p1:11, p2:6, p3:7, params:new THREE.MeshLambertMaterial({ color: 0x550055, transparent:true, opacity:0.6, side: THREE.DoubleSide})},
+        {p1:11, p2:7, p3:10, params:new THREE.MeshLambertMaterial({ color: 0xffffff, transparent:true, opacity:0.6, side: THREE.DoubleSide})},
+        {p1:11, p2:9, p3:10, params:new THREE.MeshLambertMaterial({ color: 0x550055, transparent:true, opacity:0.6, side: THREE.DoubleSide})},
+        {p1:11, p2:6, p3:9, params:new THREE.MeshLambertMaterial({ color: 0xffffff, transparent:true, opacity:0.6, side: THREE.DoubleSide})},
+        
+        {p1:12, p2:2, p3:3, params:new THREE.MeshLambertMaterial({ color: 0x550055, transparent:true, opacity:0.6, side: THREE.DoubleSide})},
+        {p1:12, p2:2, p3:6, params:new THREE.MeshLambertMaterial({ color: 0xffffff, transparent:true, opacity:0.6, side: THREE.DoubleSide})},
+        {p1:12, p2:6, p3:9, params:new THREE.MeshLambertMaterial({ color: 0x550055, transparent:true, opacity:0.6, side: THREE.DoubleSide})},
+        {p1:12, p2:3, p3:9, params:new THREE.MeshLambertMaterial({ color: 0xffffff, transparent:true, opacity:0.6, side: THREE.DoubleSide})},
+        
+        {p1:13, p2:1, p3:4, params:new THREE.MeshLambertMaterial({ color: 0x550055, transparent:true, opacity:0.6, side: THREE.DoubleSide})},
+        {p1:13, p2:4, p3:10, params:new THREE.MeshLambertMaterial({ color: 0xffffff, transparent:true, opacity:0.6, side: THREE.DoubleSide})},
+        {p1:13, p2:10, p3:7, params:new THREE.MeshLambertMaterial({ color: 0x550055, transparent:true, opacity:0.6, side: THREE.DoubleSide})},
+        {p1:13, p2:7, p3:1, params:new THREE.MeshLambertMaterial({ color: 0xffffff, transparent:true, opacity:0.6, side: THREE.DoubleSide})}
+        
+];
+
+
+
+
+
+	function createCubeSr(vertices, object,doubleSided,overdraw){
+     var geom = new THREE.Geometry(); 
+		for(var i=0; i<vertices.length; i++){
+			geom.vertices.push(new THREE.Vector3( vertices[i].x,  vertices[i].y,  vertices[i].z));
+
+		}
+		var materials=[];
+		for(var i=0; i<object.length; i++){
+			object[i].params.overdraw = overdraw;
+			materials.push(object[i].params);
+			geom.faces.push( new THREE.Face3( object[i].p1,object[i].p2,object[i].p3, null, null, i ));
+		
+	  }
+
+    geom.computeFaceNormals();
+    geom.computeVertexNormals();
+
+
+		form = new THREE.Mesh( geom, new THREE.MeshFaceMaterial(materials));
+    form.scale.set(0.3,0.3,0.3);
+		cubeSrGroup.add(form );
+	}
+	
+	function changeCanvasColor(){
+		 mycanvasRasterApp.fill('#2a0e2d');
+		 mycanvasRasterApp2.fill('#4e7767');
+		 mycanvasRasterApp2.draw(mycanvasRasterApp,0,0,fadeTab[fadeIdx]);
+		 if(fadeTab.length-1==fadeIdx) fadeIdx=0;
+		 fadeIdx++;
+		 mycanvasRasterApp.line(0,0,8,0,40,'rgba(103,29,111,0.8)');
+		 
+	}
+
+//////////// Run //////////
+function init(){
+	mycanvas = new canvas(800,600,"main");
+	mycanvasLogo=new canvas(640,140);
+	mycanvasFont=new canvas(800,16);
+	mycanvasRaster=new canvas(1200,1000);
+	mycanvasRasterApp=new canvas(8,340);
+	mycanvasRasterApp2=new canvas(8,340);
+	
+	
+	logo.setmidhandle(true);
+
+	mycanvasRaster.setmidhandle(true);
+	
+		font.initTile(16,16,32);
+		scrolltexta = new scrolltext_horizontal();
+		scrolltexta.scrtxt = text;
+		scrolltexta.init(mycanvasFont,font,3);
+
+			GL_Canvas = new THREE.WebGLRenderer({ antialias:true});
+			GL_Canvas.setSize(800,600);	
+			scene.add( new THREE.AmbientLight( 0xFFFFFF,2 ) );
+
+			camera = new THREE.PerspectiveCamera(90, window.innerWidth / window.innerHeight, 0.01, 2000 );
+			camera.position.set(0, 0, 7);
+			camera.lookAt(scene.position)
+			scene.add(camera);
+			
+			scene.fog	= new THREE.FogExp2( 0x000000, 0.007 );
+			var loader = new THREE.TextureLoader();
+			texture = loader.load( 'chessboard.png', function() {     inc_cur();   });
+            texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+			texture.anisotropy = 16;
+			texture.repeat.set(32, 32);
+			var material = new THREE.MeshLambertMaterial( { map: texture, side: THREE.DoubleSide } );
+			cylinder = new THREE.Mesh( new THREE.CylinderGeometry( 50, 200, 300, 80, 5,true ), material );
+			cylinder.position.set( 0, 0, -100 );
+			cylinder.rotation.x	= -Math.PI/2;
+			scene.add( cylinder );
+
+for(var i=0; i < 80; i++){
+createCubeSr(cubeSr, cubeSrObj,true,false);
+}
+
+
+for (j = 0; j < cubeSrGroup.children.length; j++) {
+
+if(j%i){
+cubeSrGroup.children[j].position.z=(-30*j);
+}else
+cubeSrGroup.children[j].position.z=(-5*j);
+cubeSrGroup.children[j].position.x=Math.floor(Math.random()*101)-50;
+cubeSrGroup.children[j].position.y=Math.floor(Math.random()*101)-50;
+}
+scene.add(cubeSrGroup);
+cubeSrGroup.position.z=-200;
+
+//fast2.onReady=function(){loadSong=1; fast2.play()}
+//fast2.repeat=true;
+//fast2.load(basepath + 'MichU - 068.xm'); 	
+	
+go();
+
+
+}
+
+
+var angle =0;
+var angleLogo=0;
+var angle2=0;
+var angle3=0;
+
+function go(){
+
+if ( currLoaded >0   ) {
+mycanvas.clear();
+mycanvasFont.clear();
+mycanvasRaster.clear();
+
+rot = 0.2 + 4 * Math.sin(angle);
+angle+=0.03;
+GL_Canvas.render( scene, camera );
+
+texture.offset.y	+= 0.05;
+texture.offset.x	= rot;
+texture.needsUpdate	= true;
+for (j = 0; j < cubeSrGroup.children.length; j++) {
+cubeSrGroup.children[j].rotation.z+=0.05;
+cubeSrGroup.children[j].position.z+=1.3;
+if(cubeSrGroup.children[j].position.z>=340)cubeSrGroup.children[j].position.z=-200;
+cubeSrGroup.children[j].rotation.x+=0.03;
+}
+
+mycanvas.contex.drawImage(GL_Canvas.domElement,0,0);
+
+scrolltexta.draw(0);
+changeCanvasColor();
+for(var i=0; i < 150; i++){
+raster= 700 + 20 * Math.sin(angle2+i*0.1);
+mycanvasRasterApp.draw(mycanvasRaster,i*8,raster,0.8);
+}
+angle2+=0.1;
+
+rot= 0 + 160 * Math.sin(angle3);
+angle3+=0.003;
+mycanvasRaster.draw(mycanvas,400,300,0.8,rot);
+mycanvasRaster.draw(mycanvas,400,300,0.8,rot,-1,-1);
+mycanvasFont.draw(mycanvas,0,530,0.8);
+rotLogo = 0.4 + 4 * Math.sin(angleLogo);
+angleLogo+=0.1;
+logo.draw(mycanvas,128*3,146*2,1,rotLogo);
+
+}
+requestAnimFrame( go );
+}
+</script><script>
+	document.addEventListener('webkitfullscreenchange', fsHandler, false);
+    	document.addEventListener('mozfullscreenchange', fsHandler, false);
+    	document.addEventListener('fullscreenchange', fsHandler, false);
+    	document.addEventListener('MSFullscreenChange', fsHandler, false);
+      
+    function fsHandler(){
+ 	     var elem = document.getElementById("main");
+         var state = document.fullScreen || document.mozFullScreen || document.webkitIsFullScreen;
+         if(state){
+         	elem.style.width="100%";
+      		elem.style.height="100%";
+    	 	elem.children[0].style.width="100%";
+      		elem.children[0].style.height="100%";
+         }
+         else{
+         	elem.style.width="";
+      		elem.style.height="";
+    		elem.children[0].style.width="";
+      		elem.children[0].style.height="";
+         }
+    
+    }
+    
+	function fullscr(elemId) {
+      var elem = document.getElementById("main");
+      if (elem.requestFullscreen) {
+        elem.requestFullscreen();
+      } else if (elem.mozRequestFullScreen) {
+        elem.mozRequestFullScreen();
+      } else if (elem.webkitRequestFullScreen) {
+        elem.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);
+      }
+    }
+</script>
+<style type="text/css"> 
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: Helvetica;
+      }
+
+/**
+  Tutorial : Comments System with Reply Usong jQuery & Ajax
+  Author: Amine Kacem
+  Author URI: http://www.webcodo.com
+*/
+
+/* the comments container  */
+.cmt-container{ 
+	width: 540px;
+	height: auto; min-height: 30px;
+	padding: 10px;
+	margin: 10px auto;
+	background-color: #1c3740;
+	border: #d3d6db 1px solid;
+	-webkit-border-radius: 12px; -moz-border-radius: 12px; border-radius: 12px;
+} 
+
+.cmt-cnt{
+	width: 100%; height: auto; min-height: 35px; 
+	padding: 5px 0;
+	overflow: auto;
+}
+.cmt-cnt img{
+	width: 35px; height: 35px; 
+	float: left; 
+	margin-right: 10px;
+	-webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px;
+	background-color: #ccc;
+}
+.thecom{
+	width: auto; height: auto; min-height: 35px; 
+	background-color: #1c3740;
+	border: #FFF 1px solid;
+	font: 14px 'Segoe UI', 'Proxima Nova', 'Helvetica Neue', Helvetica, Arial, sans-serif;   margin: 0;
+}
+.thecom h5{
+	display: inline;
+	float: left;
+	font-family: tahoma;
+	font-size: 15px;
+	color: #3b5998;
+	margin: 0 15px 0 5px;
+}
+.thecom .com-dt{
+	display: inline;
+	float: left;
+	font-size: 12px; 
+	line-height: 18px;
+	color: #4e5665;
+}
+.thecom p{
+	width: auto;
+	margin: 5px 5px 5px 45px;
+	color: #ccc;
+text-align: left;
+}
+.new-com-bt{
+	width: 100%;
+	 padding: 5px;
+}
+.new-com-bt span{
+	display: inline;
+	font-size: 13px;
+	margin-left: 10px;
+	line-height: 30px;
+}
+.new-com-cnt{ width: 100%; height: auto; min-height: 110px; }
+.the-new-com{ /* textarea */
+	width: 98%; height: auto; min-height: 70px;
+	padding: 5px; margin-bottom: 8px;
+	border: #d3d7dc 1px solid;
+	-webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px;
+	background-color: #f9f9f9;
+	color: #333;
+	resize: none;
+}
+.new-com-cnt input[type="text"]{
+	margin: 0;
+	height: 20px;
+	padding: 5px;
+	border: #d3d7dc 1px solid;
+	-webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px;
+	background-color: #f9f9f9;
+	color: #333;
+	margin-bottom:5px;
+}
+.cmt-container textarea:focus, .new-com-cnt input[type="text"]:focus{
+	border-color: rgba(82, 168, 236, 0.8);
+  outline: 0;
+  outline: thin dotted \9;
+  /* IE6-9 */
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.4);
+     -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.4);
+          box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.4);
+}
+.bt-add-com{
+	display: inline;
+	//float: left;
+	padding: 8px 10px;  margin-right: 10px;
+	background-color: #3498db;
+	color: #fff; cursor: pointer;
+	opacity: 0.6;
+	-webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px;
+}
+.bt-cancel-com{
+	display: inline;
+	//float: left;
+	padding: 8px 10px; 
+	border: #d9d9d9 1px solid;
+	background-color: #fff;
+	color: #404040;	cursor: pointer;
+	-webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px;
+}
+.new-com-cnt{ 
+	width:100%; height: auto; 
+	display: none;
+	padding-top: 10px; margin-bottom: 10px;
+	border-top: #d9d9d9 1px dotted;
+}
+
+
+/* Css Shadow Effect for the prod-box and prod-box-list div */
+ .shadow{
+    -webkit-box-shadow: 0px 0px 18px rgba(50, 50, 50, 0.31);
+    -moz-box-shadow:    0px 0px 10px rgba(50, 50, 50, 0.31);
+    box-shadow:         0px 0px 5px rgba(50, 50, 50, 0.31);
+}	
+	canvas {
+		  image-rendering: optimizeSpeed;             /* Older versions of FF          */
+		  image-rendering: -moz-crisp-edges;          /* FF 6.0+                       */
+		  image-rendering: -webkit-optimize-contrast; /* Safari                        */
+		  image-rendering: -o-crisp-edges;            /* OS X & Windows Opera (12.02+) */
+		  image-rendering: pixelated;                 /* Awesome future-browsers       */
+		  -ms-interpolation-mode: nearest-neighbor;   /* IE                            */
+	}
+
+    </style> 
+</head> 
+<body  onload="init();" bgcolor="#333">
+<br>
+<center>
+<div id="main"></div>
+<button onclick="fullscr('main');">Fullscreen</button>
+</center>
+<table width=100%>
+<tr>
+<td>
+Author :  ChristianMurtas</td>
+<td align=right>
+Date : 2017-05-22<br>
+</td>
+</tr>
+</table>
+
+
+</body>
+</html>
