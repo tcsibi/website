@@ -223,7 +223,7 @@ function init(){
 			
 			scene.fog	= new THREE.FogExp2( 0x000000, 0.007 );
 			var loader = new THREE.TextureLoader();
-			texture = loader.load( '/chessboard.png', function() {     inc_cur();   });
+			texture = loader.load( 'website/chessboard.png', function() {     inc_cur();   });
             texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
 			texture.anisotropy = 16;
 			texture.repeat.set(32, 32);
