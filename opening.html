@@ -1,0 +1,69 @@
+<head>
+  <meta charset="UTF-8">
+  <title>Shell</title>
+  <script >
+		 	 var i = 0;
+		var txt   = '$ cd /users/dg/demos/'; /* The text */
+		var txt2 = '$ sudo su load(demo.bin) -machine:amiga500 -mem(usemax) -nofullscreen  ';
+		var txt3 = 'Loading................             ';
+		var speed = 150; /* The speed/duration of the effect in milliseconds */
+
+		function typeWriter() {
+		  if (i < txt.length) {
+		    document.getElementById("row1").innerHTML += txt.charAt(i);
+		    i++;
+		    setTimeout(typeWriter, speed);
+		  }
+		  else
+		  {
+		  	setTimeout(typeWriter2, 2000);
+			i = 0;
+		  }
+		  }
+		  
+		function typeWriter2() {
+		  if (i < txt2.length) {
+		    document.getElementById("row2").innerHTML += txt2.charAt(i);
+		    i++;
+		    setTimeout(typeWriter2, speed);
+		  }
+		  else
+		  {
+		  	setTimeout(typeWriter3, 100);
+			i = 0;
+		  }
+		  }  
+	
+	      function typeWriter3() {
+		  if (i < txt3.length) {
+		    document.getElementById("row3").innerHTML += txt3.charAt(i);
+		    i++;
+		    setTimeout(typeWriter3, speed);
+		  }
+		  else
+		  {
+		  	window.location.href = "masodik.html";
+		  }
+		  }  
+		  
+
+  
+  </script>
+
+
+  <link rel="stylesheet" href="./style.css">
+</head>
+
+<body onload="setTimeout(typeWriter, speed);">
+
+<div class="shell-wrap">
+  <p class="shell-top-bar">/root</p>
+  <ul class="shell-body">
+    <li>Last login: Saturday 14 August 1993 14:14:14 on amiga500 ssh0</li>
+    <li> <p id="row1"></p> </li>
+	<li> <p id="row2"></p> </li>
+	<li> <p id="row3"></p> </li>
+  </ul>
+</div>
+  
+  </body>

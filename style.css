@@ -1,0 +1,73 @@
+.shell-wrap {
+  width: 700px; height: 300px;
+  margin: 100px auto 0 100;
+  box-shadow: 0 0 30px rgba(0,0,0,0.4);
+
+  border-radius: 3px;
+
+
+  background: #141414;
+
+}
+
+.shell-top-bar {
+  text-align: center;
+  color: #525252;
+  padding: 5px 0;
+  margin: 0;
+  text-shadow: 1px 1px 0 rgba(255,255,255,0.5);
+  font-size: 0.85em;
+  border: 1px solid #CCCCCC;
+  border-bottom: none;
+
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+
+  background: #f7f7f7; /* Old browsers */
+}
+
+.shell-body {
+  margin: 0;
+  padding: 5px;
+  list-style: none;
+  background: #141414;
+  color: #45D40C;
+  font: 0.8em 'Andale Mono', Consolas, 'Courier New';
+  line-height: 1.6em;
+
+  border-bottom-right-radius: 3px;
+  border-bottom-left-radius: 3px;
+
+}
+
+.shell-body li:before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.shell-body li {
+  word-wrap: break-word;
+  position: relative;
+  padding: 0 0 0 15px;
+  }
+  
+  .shell-body xli:after {
+
+      animation: blinky 1s infinite;
+      margin-left: 5px;
+      width: $cursor-size;
+      content: '_';
+      background: white  ;
+
+  }
+  
+  @keyframes blinky {
+  0% { opacity: 1.0; }
+  50% { opacity: 0.0; }
+  100% { opacity: 1.0; }
+  }
+  
+
+  

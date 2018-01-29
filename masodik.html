@@ -1,0 +1,43 @@
+<html> 
+  <head> 
+    
+    <script src="http://codef.santo.fr/codef/codef_core.js"></script> 
+    <script src="http://codef.santo.fr/codef/codef_scrolltext.js"></script> 
+    <script> 
+      
+      var myfont = new image('http://codef.santo.fr/tutorials/media/font1.png');
+      var mycanvas;
+      var myscrolltext;
+      
+      
+      function init(){
+        mycanvas=new canvas(640,480,"main");
+        myfont.initTile(32,32,32);
+        myscrolltext = new scrolltext_horizontal();
+        myscrolltext.scrtxt="MADDADDY CODE DEVELOPMENT PROUDLY PRESENTING                                             	               ";
+        myscrolltext.init(mycanvas,myfont,1);
+        
+		
+		
+		var i = 0;
+        go();
+      }
+      
+      function go(){
+        mycanvas.fill('#000000');
+        myscrolltext.draw(240-16);
+        requestAnimFrame( go );
+		
+		i++;
+		if (i>2500) {window.location.href='harmadik.html'}
+		
+      }
+      
+    </script> 
+  </head> 
+  <body onLoad="init();"  bgcolor="#000000">
+    <br>
+    <br>
+    <center><div id="main"></div></center>
+  </body> 
+</html>
