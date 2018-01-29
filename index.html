@@ -308,40 +308,6 @@ logo.draw(mycanvas,128*3,146*2,1,rotLogo);
 }
 requestAnimFrame( go );
 }
-</script><script>
-	document.addEventListener('webkitfullscreenchange', fsHandler, false);
-    	document.addEventListener('mozfullscreenchange', fsHandler, false);
-    	document.addEventListener('fullscreenchange', fsHandler, false);
-    	document.addEventListener('MSFullscreenChange', fsHandler, false);
-      
-    function fsHandler(){
- 	     var elem = document.getElementById("main");
-         var state = document.fullScreen || document.mozFullScreen || document.webkitIsFullScreen;
-         if(state){
-         	elem.style.width="100%";
-      		elem.style.height="100%";
-    	 	elem.children[0].style.width="100%";
-      		elem.children[0].style.height="100%";
-         }
-         else{
-         	elem.style.width="";
-      		elem.style.height="";
-    		elem.children[0].style.width="";
-      		elem.children[0].style.height="";
-         }
-    
-    }
-    
-	function fullscr(elemId) {
-      var elem = document.getElementById("main");
-      if (elem.requestFullscreen) {
-        elem.requestFullscreen();
-      } else if (elem.mozRequestFullScreen) {
-        elem.mozRequestFullScreen();
-      } else if (elem.webkitRequestFullScreen) {
-        elem.webkitRequestFullScreen(Element.ALLOW_KEYBOARD_INPUT);
-      }
-    }
 </script>
 <style type="text/css"> 
       body {
@@ -492,18 +458,7 @@ text-align: left;
 <br>
 <center>
 <div id="main"></div>
-<button onclick="fullscr('main');">Fullscreen</button>
-</center>
-<table width=100%>
-<tr>
-<td>
-Author :  ChristianMurtas</td>
-<td align=right>
-Date : 2017-05-22<br>
-</td>
-</tr>
-</table>
-
+	</center>
 
 </body>
 </html>
