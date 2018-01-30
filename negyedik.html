@@ -1,29 +1,21 @@
 <html> 
   <head> 
     
-    <script src="http://codef.santo.fr/codef/codef_core.js"></script> 
-    <script src="http://codef.santo.fr/codef/codef_scrolltext.js"></script> 
-    <script src="http://codef.santo.fr/codef/codef_starfield.js"></script>	
-    <script src="http://codef.santo.fr/codef/codef_music.js"></script> 
+    <script src="codef_core.js"></script> 
+    <script type="text/javascript" src="pt.js"></script>	
+    <script src="codef_scrolltext.js"></script> 
+    <script src="codef_starfield.js"></script>	
+    <script src="player.js"></script> 
+    <script src="codef_3d.js"></script> 
     <script> 
      
-	 
-	  var player = new music("MK");
-      //player.LoadAndRun("http://codef.santo.fr/tutorials/media/hmd3.mod");
-      player.LoadAndRun("hmd3.mod");
+    var fast2 = new Modplayer();	 
+    fast2.onReady=function(){fast2.play()}
+    fast2.repeat=true;
+    fast2.load('hmd3.mod'); 	
 	  
-	
-	 
-	 </script> 
-	 
-	  <script src="http://codef.santo.fr/codef/codef_core.js">	 </script> 
-    <script src="http://codef.santo.fr/codef/codef_3d.js"></script> 
-    <script src="http://codef.santo.fr/codef/codef_stats.js"></script> 
-    
-    
-    <script>
-	  
-	  var myimage=new image('maddaddy.png');
+ 
+      var myimage=new image('maddaddy.png');
       var canvasBanner;
 	        var mystarfield;
       
