@@ -9,7 +9,6 @@
 	<script src="codef_3d.js"></script> 
 	<script src="three.min.js"></script> 
 	  
-	  
 	<script> 
      
 	var fast2 = new Modplayer();	 
@@ -124,7 +123,7 @@
 	scene.add( cylinder );
 
 	var cntfihndl = document.getElementById('cntfi');
-	cntfihndl.addEventListener("animationend", function (e) { ballstrtflg = 1;	}	  );
+	cntfihndl.addEventListener("animationend", function (e) { ballstrtflg = 1; });
 
 	canvasBanner=new canvas(800,160,"banner");
 	mystarfield=new starfield3D(canvasBanner, 500, 2, 800,160, 400, 120,'#FFFFFF', 100,0,0);
@@ -262,7 +261,7 @@
 
 .contentFI {
   animation-name: contentFadeIn;
-  animation-duration: 15s;
+  animation-duration: 25s;
 }
 
 @keyframes contentFadeIn {
