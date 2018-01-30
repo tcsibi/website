@@ -9,68 +9,67 @@
     <script src="codef_3d.js"></script> 
     <script> 
      
-    var fast2 = new Modplayer();	 
-    fast2.onReady=function(){fast2.play()}
-    fast2.repeat=true;
-    fast2.load('hmd3.mod'); 	
+	var fast2 = new Modplayer();	 
+	fast2.onReady=function(){fast2.play()}
+	fast2.repeat=true;
+	fast2.load('hmd3.mod'); 	
 	  
- 
-      var myimage=new image('maddaddy.png');
-      var canvasBanner;
-	        var mystarfield;
-      
-      var myimageX=0;
-      var myimageMove=1;
-	  
-	  
-	       var mycanvasSmall; 
-	  
-	  
-      var mycanvas;
-      var my3d;
-      var ball = new Array();
-      ball[0]=new image('http://codef.santo.fr/tutorials/media/ball0.png');
-      ball[1]=new image('http://codef.santo.fr/tutorials/media/ball1.png');
-      ball[2]=new image('http://codef.santo.fr/tutorials/media/ball2.png');
-      ball[3]=new image('http://codef.santo.fr/tutorials/media/ball3.png');
-      
-      var myobj = new Array();
-      var myobjvert = new Array();
-      myobjvert=[{x:-1, y:-1, z:-1, img:0},
-                 {x: 1, y:-1, z:-1, img:1},
-                 {x: 1, y: 1, z:-1, img:2},
-                 {x:-1, y: 1, z:-1, img:3},
-                 {x:-1, y:-1, z: 1, img:2},
-                 {x: 1, y:-1, z: 1, img:3},
-                 {x: 1, y: 1, z: 1, img:0},
-                 {x:-1, y: 1, z: 1, img:1},
-                 {x:-0.35, y:-0.35, z:-0.35, img:0},
-                 {x: 0.35, y:-0.35, z:-0.35, img:1},
-                 {x: 0.35, y: 0.35, z:-0.35, img:2},
-                 {x:-0.35, y: 0.35, z:-0.35, img:3},
-                 {x:-0.35, y:-0.35, z: 0.35, img:2},
-                 {x: 0.35, y:-0.35, z: 0.35, img:3},
-                 {x: 0.35, y: 0.35, z: 0.35, img:0},
-                 {x:-0.35, y: 0.35, z: 0.35, img:1},
-                ];
-       
-	   
-	   var myrond2;
-	   
-var ballstrtflg = 0;
-	   
- 
-	   
+	var GL_Canvas;
+	var scene = new THREE.Scene();
+	var texture;
+	var camera;
+	var cylinder;
 
-function rond(cx, cy, rx, ry, offset) {
-	this.rayonx = rx ;  this.rayony = ry ;
-	this.centrex = cx ; this.centrey = cy ;
-	this.offset = offset ;
-	this.angle = 0 ;
-	this.x = this.centrex + this.rayon ;
-	this.y = this.centrey ;
-	
-	this.movenext = function () {
+	var myimage=new image('maddaddy.png');
+	var canvasBanner;
+	var mystarfield;
+
+	var myimageX=0;
+	var myimageMove=1; 
+	var mycanvasSmall; 
+	  
+
+	var mycanvas;
+	var my3d;
+	var ball = new Array();
+	ball[0]=new image('http://codef.santo.fr/tutorials/media/ball0.png');
+	ball[1]=new image('http://codef.santo.fr/tutorials/media/ball1.png');
+	ball[2]=new image('http://codef.santo.fr/tutorials/media/ball2.png');
+	ball[3]=new image('http://codef.santo.fr/tutorials/media/ball3.png');
+
+	var myobj = new Array();
+	var myobjvert = new Array();
+      myobjvert=[{x:-1, y:-1, z:-1, img:0},
+		 {x: 1, y:-1, z:-1, img:1},
+		 {x: 1, y: 1, z:-1, img:2},
+		 {x:-1, y: 1, z:-1, img:3},
+		 {x:-1, y:-1, z: 1, img:2},
+		 {x: 1, y:-1, z: 1, img:3},
+		 {x: 1, y: 1, z: 1, img:0},
+		 {x:-1, y: 1, z: 1, img:1},
+		 {x:-0.35, y:-0.35, z:-0.35, img:0},
+		 {x: 0.35, y:-0.35, z:-0.35, img:1},
+		 {x: 0.35, y: 0.35, z:-0.35, img:2},
+		 {x:-0.35, y: 0.35, z:-0.35, img:3},
+		 {x:-0.35, y:-0.35, z: 0.35, img:2},
+		 {x: 0.35, y:-0.35, z: 0.35, img:3},
+		 {x: 0.35, y: 0.35, z: 0.35, img:0},
+		 {x:-0.35, y: 0.35, z: 0.35, img:1},
+		];
+       
+
+	var myrond2;	   
+	var ballstrtflg = 0;
+	    
+	function rond(cx, cy, rx, ry, offset) {
+		this.rayonx = rx ;  this.rayony = ry ;
+		this.centrex = cx ; this.centrey = cy ;
+		this.offset = offset ;
+		this.angle = 0 ;
+		this.x = this.centrex + this.rayon ;
+		this.y = this.centrey ;
+
+		this.movenext = function () {
 		this.x = this.centrex + this.rayonx*Math.cos(this.angle+this.offset) ;
 		this.y = this.centrey + this.rayony*Math.sin(this.angle+this.offset) ;
 		this.angle += this.offset % (Math.PI*2) ;
@@ -98,82 +97,83 @@ function rond(cx, cy, rx, ry, offset) {
 	}
 }
 	             
-                 function init(){
+	 function init(){
+		 
+		GL_Canvas = new THREE.WebGLRenderer({ antialias:true});
+		GL_Canvas.setSize(640,480);	
+		scene.add( new THREE.AmbientLight( 0xFFFFFF,2 ) );
+		camera = new THREE.PerspectiveCamera(90, window.innerWidth / window.innerHeight, 0.01, 2000 );
+		camera.position.set(0, 0, 7);
+		camera.lookAt(scene.position)
+		scene.add(camera);
+
+		scene.fog = new THREE.FogExp2( 0x000000, 0.007 );
+		var loader = new THREE.TextureLoader();
+		texture = loader.load( 'chessboard.png', function() {  });
+		texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+		texture.anisotropy = 16;
+		texture.repeat.set(32, 32);
+		var material = new THREE.MeshLambertMaterial( { map: texture, side: THREE.DoubleSide } );
+		cylinder = new THREE.Mesh( new THREE.CylinderGeometry( 50, 200, 300, 80, 5,true ), material );
+		cylinder.position.set( 0, 0, -100 );
+		cylinder.rotation.x	= -Math.PI/2;
+		scene.add( cylinder );
+
+	var cntfihndl = document.getElementById('cntfi');
+	cntfihndl.addEventListener("animationend", function (e) { ballstrtflg = 1;	}	  );
+
+	canvasBanner=new canvas(800,160,"banner");
+	mystarfield=new starfield3D(canvasBanner, 500, 2, 800,160, 400, 120,'#FFFFFF', 100,0,0);
+
+	 mycanvas=new canvas(640,480,"content");
+	 mycanvas.fill('#000000');
+	 my3d=new codef3D(mycanvas, 900, 40, 1, 1600 );
+	 my3d.vectorball_img(myobjvert, ball );
+	 my3d.group.scale.x=my3d.group.scale.y=my3d.group.scale.z=90;
+
+
+	 mycanvasSmall=new canvas(160,480,"navigation");
+	 mycanvasSmall.fill('#000000');
+	 myrond2 = new rond(160/2,244,190,160,0.077) ;
+
+	 go();
+	 }
+
+	 function go(){
+	 mycanvas.fill('#000000');
 				 
-				 	   
-	              var cntfihndl = document.getElementById('cntfi');
-	            cntfihndl.addEventListener("animationend", 
-				function (e) { ballstrtflg = 1;	}	  );
-				
-				
-				///cntfihndl.onCSSAnimationEnd( function() { ballstrtflg = 1;});
-				
-				
-           
-		   		canvasBanner=new canvas(800,160,"banner");
-				mystarfield=new starfield3D(canvasBanner, 500, 2, 800,160, 400, 120,'#FFFFFF', 100,0,0);
-		   
-                 mycanvas=new canvas(640,480,"content");
-                 mycanvas.fill('#000000');
-                 my3d=new codef3D(mycanvas, 900, 40, 1, 1600 );
-                 my3d.vectorball_img(myobjvert, ball );
-                 my3d.group.scale.x=my3d.group.scale.y=my3d.group.scale.z=90;
-				 
-				 
-				 mycanvasSmall=new canvas(160,480,"navigation");
-				 mycanvasSmall.fill('#000000');
-				 myrond2 = new rond(160/2,244,190,160,0.077) ;
-                 
-                 go();
-                 }
-                 
-                 function go(){
-                 mycanvas.fill('#000000');
-				 
-				 
-				 if(my3d.group.position.z < 800)
-				 {
-				 my3d.group.rotation.x+=0.01;
-	                 my3d.group.rotation.y+=0.02;
-	                 my3d.group.rotation.z+=0.04;
-	                 
-					 if(ballstrtflg==1){my3d.group.position.z+=3;}
-					 
-					 my3d.draw();
-					 }
-	                 
-				 else
-				 {
-				 		 // bitdanceimg.draw(mycanvas,20,20);
-				 }
-				 
-				 
-				 
-				 
-				 
-				 canvasBanner.fill('#000000');
-				 mystarfield.draw();
-				 myimage.draw(canvasBanner,myimageX,20);
-                 myimageX+=myimageMove;
-			        if(myimageX>800-myimage.img.width)
-			          myimageMove=-1;
-			        if(myimageX<0)
-			          myimageMove=1;
-				 
-				              
-								 
-					mycanvasSmall.fill('#002042');
-					do_triangles() ;
-					myrond2.movenext() ;
-								 
-								 
-				 
-				 
-				 
-				 
-         
-                 requestAnimFrame( go );
-                 }	  
+
+	if(my3d.group.position.z < 800)
+	{
+		my3d.group.rotation.x+=0.01;
+		my3d.group.rotation.y+=0.02;
+		my3d.group.rotation.z+=0.04;
+
+		if(ballstrtflg==1){my3d.group.position.z+=3;}
+
+		my3d.draw();
+	}
+	else
+	{
+		GL_Canvas.render( scene, camera );
+		mycanvas.contex.drawImage(GL_Canvas.domElement,0,0);
+	}
+		 
+	canvasBanner.fill('#000000');
+	mystarfield.draw();
+	myimage.draw(canvasBanner,myimageX,20);
+	myimageX+=myimageMove;
+	if(myimageX>800-myimage.img.width)
+	myimageMove=-1;
+	if(myimageX<0)
+	myimageMove=1;	
+
+	mycanvasSmall.fill('#002042');
+	do_triangles() ;
+	myrond2.movenext() ;
+
+	requestAnimFrame( go );
+	}	  
 	  
     </script> 
   </head> 
