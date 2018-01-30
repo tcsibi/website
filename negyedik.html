@@ -108,7 +108,7 @@
 		scene.add(camera);
 
 		scene.fog = new THREE.FogExp2( 0x000000, 0.007 );
-		var loader =  THREE.TextureLoader();
+		var loader = new THREE.TextureLoader();
 		texture = loader.load( 'chessboard.png', function() {  });
 		texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
 		texture.anisotropy = 16;
