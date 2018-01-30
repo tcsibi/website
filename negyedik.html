@@ -63,6 +63,8 @@
 
 	var myrond2;	   
 	var ballstrtflg = 0;
+		
+	function startBall() { ballstrtflg = 1; }
 	    
 	function rond(cx, cy, rx, ry, offset) {
 		this.rayonx = rx ;  this.rayony = ry ;
@@ -123,7 +125,7 @@
 	scene.add( cylinder );
 
 	var cntfihndl = document.getElementById('cntfi');
-	cntfihndl.addEventListener("animationend", function (e) { ballstrtflg = 1; });
+	cntfihndl.addEventListener("animationend", startBall );
 
 	canvasBanner=new canvas(800,160,"banner");
 	mystarfield=new starfield3D(canvasBanner, 500, 2, 800,160, 400, 120,'#FFFFFF', 100,0,0);
@@ -154,7 +156,8 @@
 		my3d.group.rotation.y+=0.02;
 		my3d.group.rotation.z+=0.04;
 
-		if(ballstrtflg==1){my3d.group.position.z+=3;}
+		if(ballstrtflg==1)
+		{my3d.group.position.z+=3;}
 
 		my3d.draw();
 	}
@@ -277,9 +280,5 @@
     opacity: 1;
   }
 }
-
-
-
-
 
 </style>
