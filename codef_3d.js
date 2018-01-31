@@ -175,7 +175,7 @@ function codef3D(dst, camZ, fov, near, far){
 			
 			
 			var spriteMap = new THREE.TextureLoader().load( "ball0.png" );
-			var spriteMaterial = new THREE.SpriteMaterial( { map: spriteMap } );
+			var spriteMaterial = new THREE.SpriteMaterial( { map: spriteMap, color: 0xffffff } );
 			var sprite = new THREE.Sprite( spriteMaterial );
 
 			sprite.position.x = vertices[i].x;
