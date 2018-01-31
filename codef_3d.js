@@ -168,16 +168,20 @@ function codef3D(dst, camZ, fov, near, far){
 
 		
 		for(var i=0; i<vertices.length; i++){
-			eval('plop=function ( context ){context.drawImage(img['+vertices[i].img+'].img,-'+img[vertices[i].img].img.width/2+',-'+img[vertices[i].img].img.height/2+');}');
-			var material = new THREE.ParticleCanvasMaterial( {
-			program: plop
-			} );
+			//eval('plop=function ( context ){context.drawImage(img['+vertices[i].img+'].img,-'+img[vertices[i].img].img.width/2+',-'+img[vertices[i].img].img.height/2+');}');
+			//var material = new THREE.ParticleCanvasMaterial( {
+			//program: plop
+			//} );
 			
-			var particle = new THREE.Particle( material );
-			particle.position.x = vertices[i].x;
-			particle.position.y = vertices[i].y;
-			particle.position.z = vertices[i].z;
-			this.group.add( particle );
+			
+			var spriteMap = new THREE.TextureLoader().load( "ball0.png" );
+			var spriteMaterial = new THREE.SpriteMaterial( { map: spriteMap } );
+			var sprite = new THREE.Sprite( spriteMaterial );
+
+			sprite.position.x = vertices[i].x;
+			sprite.position.y = vertices[i].y;
+			sprite.position.z = vertices[i].z;
+			this.group.add( sprite );
 		}
 		
 	}
