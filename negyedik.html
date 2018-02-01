@@ -37,30 +37,7 @@
 	  
 
 	var mycanvas;
-      var my3d;
       
-      var myobj = new Array();
-      var myobjvert = new Array();
-      myobjvert=[
-        {x:-100, y:0, z: 100},
-        {x: 100, y:0, z: 100},
-        {x: 100, y:0, z: -100},
-        {x:-100, y:0, z: -100},
-        {x:0, y: 200, z: 0},
-        {x:0, y:-200, z: 0},
-      ];
-        
-        myobj=[ 
-        {p1:1, p2:4, p3:0, params:new MeshBasicMaterial({ color: 0xff0000, wireframe: true, wireframeLinewidth:2})},
-        {p1:2, p2:4, p3:1, params:new MeshBasicMaterial({ color: 0xff0000, wireframe: true, wireframeLinewidth:2})},
-        {p1:3, p2:4, p3:2, params:new MeshBasicMaterial({ color: 0xff0000, wireframe: true, wireframeLinewidth:2})},
-        {p1:0, p2:4, p3:3, params:new MeshBasicMaterial({ color: 0xff0000, wireframe: true, wireframeLinewidth:2})},
-        {p1:0, p2:5, p3:1, params:new MeshBasicMaterial({ color: 0xff0000, wireframe: true, wireframeLinewidth:2})},
-        {p1:1, p2:5, p3:2, params:new MeshBasicMaterial({ color: 0xff0000, wireframe: true, wireframeLinewidth:2})},
-        {p1:2, p2:5, p3:3, params:new MeshBasicMaterial({ color: 0xff0000, wireframe: true, wireframeLinewidth:2})},
-        {p1:3, p2:5, p3:0, params:new MeshBasicMaterial({ color: 0xff0000, wireframe: true, wireframeLinewidth:2})},
-      ];
-       
 
 	var myrond2;	   
 	var ballstrtflg = 0;
@@ -150,7 +127,8 @@
 	 mycanvas.fill('#000000');
 				 
 
-	if(my3d.group.position.z < 800)
+	//if(my3d.group.position.z < 800)
+		 if(1)
 	{
 
 		cs_animate();
