@@ -36,32 +36,29 @@
 	  
 
 	var mycanvas;
-	var my3d;
-	var ball = new Array();
-	ball[0]=new image('ball0.png');    //https://codef.santo.fr/tutorials/media/
-	ball[1]=new image('ball1.png');
-	ball[2]=new image('ball2.png');
-	ball[3]=new image('ball3.png');
-
-	var myobj = new Array();
-	var myobjvert = new Array();
-      myobjvert=[{x:-1, y:-1, z:-1, img:0},
-		 {x: 1, y:-1, z:-1, img:1},
-		 {x: 1, y: 1, z:-1, img:2},
-		 {x:-1, y: 1, z:-1, img:3},
-		 {x:-1, y:-1, z: 1, img:2},
-		 {x: 1, y:-1, z: 1, img:3},
-		 {x: 1, y: 1, z: 1, img:0},
-		 {x:-1, y: 1, z: 1, img:1},
-		 {x:-0.35, y:-0.35, z:-0.35, img:0},
-		 {x: 0.35, y:-0.35, z:-0.35, img:1},
-		 {x: 0.35, y: 0.35, z:-0.35, img:2},
-		 {x:-0.35, y: 0.35, z:-0.35, img:3},
-		 {x:-0.35, y:-0.35, z: 0.35, img:2},
-		 {x: 0.35, y:-0.35, z: 0.35, img:3},
-		 {x: 0.35, y: 0.35, z: 0.35, img:0},
-		 {x:-0.35, y: 0.35, z: 0.35, img:1},
-		];
+      var my3d;
+      
+      var myobj = new Array();
+      var myobjvert = new Array();
+      myobjvert=[
+        {x:-100, y:0, z: 100},
+        {x: 100, y:0, z: 100},
+        {x: 100, y:0, z: -100},
+        {x:-100, y:0, z: -100},
+        {x:0, y: 200, z: 0},
+        {x:0, y:-200, z: 0},
+      ];
+        
+        myobj=[ 
+        {p1:1, p2:4, p3:0, params:new MeshBasicMaterial({ color: 0xff0000, wireframe: true, wireframeLinewidth:2})},
+        {p1:2, p2:4, p3:1, params:new MeshBasicMaterial({ color: 0xff0000, wireframe: true, wireframeLinewidth:2})},
+        {p1:3, p2:4, p3:2, params:new MeshBasicMaterial({ color: 0xff0000, wireframe: true, wireframeLinewidth:2})},
+        {p1:0, p2:4, p3:3, params:new MeshBasicMaterial({ color: 0xff0000, wireframe: true, wireframeLinewidth:2})},
+        {p1:0, p2:5, p3:1, params:new MeshBasicMaterial({ color: 0xff0000, wireframe: true, wireframeLinewidth:2})},
+        {p1:1, p2:5, p3:2, params:new MeshBasicMaterial({ color: 0xff0000, wireframe: true, wireframeLinewidth:2})},
+        {p1:2, p2:5, p3:3, params:new MeshBasicMaterial({ color: 0xff0000, wireframe: true, wireframeLinewidth:2})},
+        {p1:3, p2:5, p3:0, params:new MeshBasicMaterial({ color: 0xff0000, wireframe: true, wireframeLinewidth:2})},
+      ];
        
 
 	var myrond2;	   
@@ -136,8 +133,7 @@
 	 mycanvas=new canvas(640,480,"content");
 	 mycanvas.fill('#000000');
 	 my3d=new codef3D(mycanvas, 900, 40, 1, 1600 );
-	 my3d.vectorball_img(myobjvert, ball );
-	 my3d.group.scale.x=my3d.group.scale.y=my3d.group.scale.z=90;
+         my3d.faces(myobjvert,myobj, true, false );
 
 
 	 mycanvasSmall=new canvas(160,480,"navigation");
