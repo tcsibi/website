@@ -46,7 +46,7 @@
 
 				cs_renderer = new THREE.WebGLRenderer( { antialias: true } );
 				//cs_renderer.setPixelRatio( window.devicePixelRatio );
-				cs_renderer.setSize( setSize(640,480);
+				cs_renderer.setSize(640,480);
 				//document.body.appendChild( renderer.domElement );
 
 
