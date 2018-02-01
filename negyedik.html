@@ -10,6 +10,7 @@
 	<script src="codef_3d.js"></script> 
 	<script src="canvasrenderer.js"></script> 
 	<script src="Projector.js"></script> 
+	<script src="cubeSphere.js"></script>
 	
 	  
 	<script> 
@@ -132,8 +133,8 @@
 
 	 mycanvas=new canvas(640,480,"content");
 	 mycanvas.fill('#000000');
-	 my3d=new codef3D(mycanvas, 900, 40, 1, 1600 );
-         my3d.faces(myobjvert,myobj, true, false );
+		 
+         cs_init();
 
 
 	 mycanvasSmall=new canvas(160,480,"navigation");
@@ -151,14 +152,13 @@
 
 	if(my3d.group.position.z < 800)
 	{
-		my3d.group.rotation.x+=0.01;
-		my3d.group.rotation.y+=0.02;
-		my3d.group.rotation.z+=0.04;
 
+		cs_animate();
+		
 		if(ballstrtflg==1)
 		{my3d.group.position.z+=3;}
 
-		my3d.draw();
+		
 	}
 	else
 	{
