@@ -1,20 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-		<title>three.js webgl - materials - wireframe</title>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-		<style>
-			body {
-				margin: 0px;
-				background-color: #000000;
-				overflow: hidden;
-			}
-		</style>
-	</head>
-	<body>
 
-		<script src="three.min.js"></script>
 
 		<script type="x-shader/x-vertex" id="vertexShader">
 
@@ -52,21 +36,20 @@
 
 		<script>
 
-			var camera, scene, renderer;
+			var cs_camera, cs_scene, cs_renderer;
 
-			init();
-			animate();
 
-			function init() {
+
+			function cs_init() {
 
 				var geometry, material, mesh;
 
 				var size = 150;
 
-				camera = new THREE.PerspectiveCamera( 40, window.innerWidth / window.innerHeight, 1, 2000 );
-				camera.position.z = 800;
+				cs_camera = new THREE.PerspectiveCamera( 40, window.innerWidth / window.innerHeight, 1, 2000 );
+				cs_camera.position.z = 800;
 
-				scene = new THREE.Scene();
+				cs_scene = new THREE.Scene();
 
 				//
 
@@ -75,12 +58,7 @@
 
 				mesh = new THREE.Mesh( geometry, material );
 				mesh.position.x = -150;
-				scene.add( mesh );
-
-				//
-
-
-				//
+				cs_scene.add( mesh );
 
 				geometry = new THREE.BufferGeometry().fromGeometry( new THREE.SphereGeometry( size / 2, 32, 16 ) );
 
@@ -96,14 +74,14 @@
 
 				mesh = new THREE.Mesh( geometry, material );
 				mesh.position.x = -150;
-				scene.add( mesh );
+				cs_scene.add( mesh );
 
 				// renderer
 
-				renderer = new THREE.WebGLRenderer( { antialias: true } );
-				renderer.setPixelRatio( window.devicePixelRatio );
-				renderer.setSize( window.innerWidth, window.innerHeight );
-				document.body.appendChild( renderer.domElement );
+				cs_renderer = new THREE.WebGLRenderer( { antialias: true } );
+				//cs_renderer.setPixelRatio( window.devicePixelRatio );
+				cs_renderer.setSize( setSize(640,480);
+				//document.body.appendChild( renderer.domElement );
 
 
 			}
@@ -134,23 +112,21 @@
 
 
 
-			function animate() {
+			function cs_animate() {
 
-				requestAnimationFrame( animate );
+				for ( var i = 0; i < cs_scene.children.length; i ++ ) {
 
-				for ( var i = 0; i < scene.children.length; i ++ ) {
-
-					var object = scene.children[ i ];
+					var object = cs_scene.children[ i ];
 					object.rotation.x += 0.005;
 					object.rotation.y += 0.01;
 
 				}
 
-				renderer.render( scene, camera );
+				cs_renderer.render( cs_scene, cs_camera );
+				
+				mycanvas.contex.drawImage(cs_renderer.domElement,0,0);
 
 			}
 
 		</script>
 
-	</body>
-</html>
