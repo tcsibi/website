@@ -125,6 +125,17 @@
 	scene.add(camera);
 
 	scene.fog = new THREE.FogExp2( 0x000000, 0.007 );
+		 
+	cbimage = new image('chessboard.png');	 
+	texture = new THREE.Texture(cbimage);	 
+	texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+	texture.anisotropy = 16;
+	texture.repeat.set(32, 32);
+	var material = new THREE.MeshLambertMaterial( { map: texture, side: THREE.DoubleSide } );
+	cylinder = new THREE.Mesh( new THREE.CylinderGeometry( 50, 200, 300, 80, 5,true ), material );
+	cylinder.position.set( 0, 0, -100 );
+	cylinder.rotation.x	= -Math.PI/2;
+	scene.add( cylinder );	 
 
 	 mycanvasSmall=new canvas(160,480,"navigation");
 	 mycanvasSmall.fill('#000000');
