@@ -7,9 +7,11 @@
     <script src="codef_starfield.js"></script>	
     <script src="player.js"></script> 
     <script src="codef_3d.js"></script> 
+	  
+  
     <script> 
      
-	texture	= new THREE.ImageUtils.loadTexture('chessboard.png');    
+	
 	    
 	var fast2 = new Modplayer();	 
 	fast2.onReady=function(){fast2.play()}
@@ -131,8 +133,8 @@
 	//cbimage = new image('chessboard.png');	 
 	//texture = new THREE.Texture(cbimage);	
 		 
-	
-		 
+	//texture	= new THREE.ImageUtils.loadTexture('chessboard.png');    
+	texture	= new THREE.ImageUtils.loadTexture('chessboard.png', {}, function(){} );    	 
 	texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
 	texture.anisotropy = 16;
 	texture.repeat.set(32, 32);
