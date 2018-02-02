@@ -7,7 +7,9 @@
     <script src="codef_starfield.js"></script>	
     <script src="player.js"></script> 
     <script src="codef_3d.js"></script> 
-	  
+
+    <script src="three.min.js"></script> 
+    <script src="Three.Legacy.js"></script> 
   
     <script> 
      
@@ -133,8 +135,10 @@
 	//cbimage = new image('chessboard.png');	 
 	//texture = new THREE.Texture(cbimage);	
 		 
-	//texture	= new THREE.ImageUtils.loadTexture('chessboard.png');    
-	texture	= new THREE.ImageUtils.loadTexture('chessboard.png', {}, function(){} );    	 
+	// texture	= new THREE.ImageUtils.loadTexture('chessboard.png', {}, function(){} );
+		 
+	var loader = new THREE.TextureLoader();
+	texture = loader.load( 'chessboard.png', function() {  });	 
 	texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
 	texture.anisotropy = 16;
 	texture.repeat.set(32, 32);
