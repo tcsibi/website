@@ -19,6 +19,7 @@
 	var texture;
 	var camera;
 	var cylinder;
+	var angle =0;
 
 	var myimage=new image('maddaddy.png');
 	var canvasBanner;
@@ -109,10 +110,21 @@
 
 	 mycanvas=new canvas(640,480,"content");
 	 mycanvas.fill('#000000');
+		 
+		 
 	 my3d=new codef3D(mycanvas, 900, 40, 1, 1600 );
 	 my3d.vectorball_img(myobjvert, ball );
 	 my3d.group.scale.x=my3d.group.scale.y=my3d.group.scale.z=90;
 
+	GL_Canvas = new THREE.WebGLRenderer({ antialias:true});
+	GL_Canvas.setSize(640,480);	
+	scene.add( new THREE.AmbientLight( 0xFFFFFF,2 ) );
+	camera = new THREE.PerspectiveCamera(90, window.innerWidth / window.innerHeight, 0.01, 2000 );
+	camera.position.set(0, 0, 7);
+	camera.lookAt(scene.position)
+	scene.add(camera);
+
+	scene.fog = new THREE.FogExp2( 0x000000, 0.007 );
 
 	 mycanvasSmall=new canvas(160,480,"navigation");
 	 mycanvasSmall.fill('#000000');
@@ -137,7 +149,12 @@
 	}
 	else
 	{
+		rot = 0.2 + 4 * Math.sin(angle);
+		angle+=0.03;
 		GL_Canvas.render( scene, camera );
+		texture.offset.y	+= 0.05;
+		texture.offset.x	= rot;
+		texture.needsUpdate	= true;
 		mycanvas.contex.drawImage(GL_Canvas.domElement,0,0);
 	}
 		 
