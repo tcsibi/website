@@ -126,8 +126,11 @@
 
 	scene.fog = new THREE.FogExp2( 0x000000, 0.007 );
 		 
-	cbimage = new image('chessboard.png');	 
-	texture = new THREE.Texture(cbimage);	 
+	//cbimage = new image('chessboard.png');	 
+	//texture = new THREE.Texture(cbimage);	
+		 
+	texture	= new THREE.ImageUtils.loadTexture('chessboard.png');
+		 
 	texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
 	texture.anisotropy = 16;
 	texture.repeat.set(32, 32);
