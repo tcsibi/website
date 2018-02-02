@@ -1,54 +1,13 @@
 <html> 
   <head> 
     
-	<script src="codef_core.js"></script> 
-	  <script src="three.min.js"></script> 
-	<script type="text/javascript" src="pt.js"></script>	
-	<script src="codef_scrolltext.js"></script> 
-	<script src="codef_starfield.js"></script>	
-	<script src="player.js"></script> 
-	<script src="codef_3d.js"></script> 
-	<script src="canvasrenderer.js"></script> 
-	<script src="Projector.js"></script> 
-	<script src="cubeSphere.js"></script>
-	
-	  <script type="x-shader/x-vertex" id="vertexShader">
-
-			attribute vec3 center;
-			varying vec3 vCenter;
-
-			void main() {
-
-				vCenter = center;
-				gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
-
-			}
-
-		</script>
-
-		<script type="x-shader/x-fragment" id="fragmentShader">
-
-			varying vec3 vCenter;
-
-			float edgeFactorTri() {
-
-				vec3 d = fwidth( vCenter.xyz );
-				vec3 a3 = smoothstep( vec3( 0.0 ), d * 1.5, vCenter.xyz );
-				return min( min( a3.x, a3.y ), a3.z );
-
-			}
-
-			void main() {
-
-				gl_FragColor.rgb = mix( vec3( 1.0 ), vec3( 0.2 ), edgeFactorTri() );
-				gl_FragColor.a = 1.0;
-			}
-
-		</script>
-
-		
-	  
-	<script> 
+    <script src="codef_core.js"></script> 
+    <script type="text/javascript" src="pt.js"></script>	
+    <script src="codef_scrolltext.js"></script> 
+    <script src="codef_starfield.js"></script>	
+    <script src="player.js"></script> 
+    <script src="codef_3d.js"></script> 
+    <script> 
      
 	var fast2 = new Modplayer();	 
 	fast2.onReady=function(){fast2.play()}
@@ -60,7 +19,6 @@
 	var texture;
 	var camera;
 	var cylinder;
-	var angle =0;
 
 	var myimage=new image('maddaddy.png');
 	var canvasBanner;
@@ -72,12 +30,36 @@
 	  
 
 	var mycanvas;
-      
+	var my3d;
+	var ball = new Array();
+	ball[0]=new image('ball0.png');
+	ball[1]=new image('ball1.png');
+	ball[2]=new image('ball2.png');
+	ball[3]=new image('ball3.png');
+
+	var myobj = new Array();
+	var myobjvert = new Array();
+      myobjvert=[{x:-1, y:-1, z:-1, img:0},
+		 {x: 1, y:-1, z:-1, img:1},
+		 {x: 1, y: 1, z:-1, img:2},
+		 {x:-1, y: 1, z:-1, img:3},
+		 {x:-1, y:-1, z: 1, img:2},
+		 {x: 1, y:-1, z: 1, img:3},
+		 {x: 1, y: 1, z: 1, img:0},
+		 {x:-1, y: 1, z: 1, img:1},
+		 {x:-0.35, y:-0.35, z:-0.35, img:0},
+		 {x: 0.35, y:-0.35, z:-0.35, img:1},
+		 {x: 0.35, y: 0.35, z:-0.35, img:2},
+		 {x:-0.35, y: 0.35, z:-0.35, img:3},
+		 {x:-0.35, y:-0.35, z: 0.35, img:2},
+		 {x: 0.35, y:-0.35, z: 0.35, img:3},
+		 {x: 0.35, y: 0.35, z: 0.35, img:0},
+		 {x:-0.35, y: 0.35, z: 0.35, img:1},
+		];
+       
 
 	var myrond2;	   
 	var ballstrtflg = 0;
-		
-	function startBall() { ballstrtflg = 1; }
 	    
 	function rond(cx, cy, rx, ry, offset) {
 		this.rayonx = rx ;  this.rayony = ry ;
@@ -117,36 +99,37 @@
 	             
 	 function init(){
 		 
-	GL_Canvas = new THREE.WebGLRenderer({ antialias:true});
-	GL_Canvas.setSize(640,480);	
-	scene.add( new THREE.AmbientLight( 0xFFFFFF,2 ) );
-	camera = new THREE.PerspectiveCamera(90, window.innerWidth / window.innerHeight, 0.01, 2000 );
-	camera.position.set(0, 0, 7);
-	camera.lookAt(scene.position)
-	scene.add(camera);
+		GL_Canvas = new THREE.WebGLRenderer({ antialias:true});
+		GL_Canvas.setSize(640,480);	
+		scene.add( new THREE.AmbientLight( 0xFFFFFF,2 ) );
+		camera = new THREE.PerspectiveCamera(90, window.innerWidth / window.innerHeight, 0.01, 2000 );
+		camera.position.set(0, 0, 7);
+		camera.lookAt(scene.position)
+		scene.add(camera);
 
-	scene.fog = new THREE.FogExp2( 0x000000, 0.007 );
-	var loader = new THREE.TextureLoader();
-	texture = loader.load( 'chessboard.png', function() {  });
-	texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
-	texture.anisotropy = 16;
-	texture.repeat.set(32, 32);
-	var material = new THREE.MeshLambertMaterial( { map: texture, side: THREE.DoubleSide } );
-	cylinder = new THREE.Mesh( new THREE.CylinderGeometry( 50, 200, 300, 80, 5,true ), material );
-	cylinder.position.set( 0, 0, -100 );
-	cylinder.rotation.x	= -Math.PI/2;
-	scene.add( cylinder );
+		scene.fog = new THREE.FogExp2( 0x000000, 0.007 );
+		var loader = new THREE.TextureLoader();
+		texture = loader.load( 'chessboard.png', function() {  });
+		texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+		texture.anisotropy = 16;
+		texture.repeat.set(32, 32);
+		var material = new THREE.MeshLambertMaterial( { map: texture, side: THREE.DoubleSide } );
+		cylinder = new THREE.Mesh( new THREE.CylinderGeometry( 50, 200, 300, 80, 5,true ), material );
+		cylinder.position.set( 0, 0, -100 );
+		cylinder.rotation.x	= -Math.PI/2;
+		scene.add( cylinder );
 
 	var cntfihndl = document.getElementById('cntfi');
-	cntfihndl.addEventListener("animationend", startBall );
+	cntfihndl.addEventListener("animationend", function (e) { ballstrtflg = 1;	}	  );
 
 	canvasBanner=new canvas(800,160,"banner");
 	mystarfield=new starfield3D(canvasBanner, 500, 2, 800,160, 400, 120,'#FFFFFF', 100,0,0);
 
 	 mycanvas=new canvas(640,480,"content");
 	 mycanvas.fill('#000000');
-		 
-         cs_init();
+	 my3d=new codef3D(mycanvas, 900, 40, 1, 1600 );
+	 my3d.vectorball_img(myobjvert, ball );
+	 my3d.group.scale.x=my3d.group.scale.y=my3d.group.scale.z=90;
 
 
 	 mycanvasSmall=new canvas(160,480,"navigation");
@@ -156,31 +139,23 @@
 	 go();
 	 }
 
-		
-		
 	 function go(){
 	 mycanvas.fill('#000000');
 				 
 
-	//if(my3d.group.position.z < 800)
-		 if(1)
+	if(my3d.group.position.z < 800)
 	{
+		my3d.group.rotation.x+=0.01;
+		my3d.group.rotation.y+=0.02;
+		my3d.group.rotation.z+=0.04;
 
-		cs_animate();
-		
-		//if(ballstrtflg==1)
-		//{my3d.group.position.z+=3;}
+		if(ballstrtflg==1){my3d.group.position.z+=3;}
 
-		
+		my3d.draw();
 	}
 	else
 	{
-		rot = 0.2 + 4 * Math.sin(angle);
-		angle+=0.03;
 		GL_Canvas.render( scene, camera );
-		texture.offset.y	+= 0.05;
-		texture.offset.x	= rot;
-		texture.needsUpdate	= true;
 		mycanvas.contex.drawImage(GL_Canvas.domElement,0,0);
 	}
 		 
@@ -204,8 +179,6 @@
   </head> 
   
   
-  
-  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   <body onLoad="init();"  bgcolor="#000000">
 
 
@@ -292,5 +265,5 @@
     opacity: 1;
   }
 }
-
+	
 </style>
