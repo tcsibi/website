@@ -9,6 +9,8 @@
     <script src="codef_3d.js"></script> 
     <script> 
      
+	texture	= new THREE.ImageUtils.loadTexture('chessboard.png');    
+	    
 	var fast2 = new Modplayer();	 
 	fast2.onReady=function(){fast2.play()}
 	fast2.repeat=true;
@@ -129,7 +131,7 @@
 	//cbimage = new image('chessboard.png');	 
 	//texture = new THREE.Texture(cbimage);	
 		 
-	texture	= new THREE.ImageUtils.loadTexture('chessboard.png');
+	
 		 
 	texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
 	texture.anisotropy = 16;
