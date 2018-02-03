@@ -169,11 +169,11 @@ function codef3D(dst, camZ, fov, near, far){
 		
 		for(var i=0; i<vertices.length; i++){
 			eval('plop=function ( context ){context.drawImage(img['+vertices[i].img+'].img,-'+img[vertices[i].img].img.width/2+',-'+img[vertices[i].img].img.height/2+');}');
-			var material = new THREE.ParticleCanvasMaterial( {
+			var material = new THREE.SpriteCanvasMaterial( {
 			program: plop
 			} );
 			
-			var particle = new THREE.Particle( material );
+			var particle = new THREE.Sprite( material );
 			particle.position.x = vertices[i].x;
 			particle.position.y = vertices[i].y;
 			particle.position.z = vertices[i].z;
