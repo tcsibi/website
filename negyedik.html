@@ -167,8 +167,13 @@
 		my3d.group.rotation.y+=0.02;
 		my3d.group.rotation.z+=0.04;
 
-		if(ballstrtflg==1){my3d.group.position.z+=3;}
+		//if(ballstrtflg==1){my3d.group.position.z+=3;}
 
+		if(ballstrtflg==1){
+		  my3d.group.scale.x=my3d.group.scale.y=  (my3d.group.scale.z+=10);
+		}
+		
+		
 		my3d.draw();
 	}
 	else
