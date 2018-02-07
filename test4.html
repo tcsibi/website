@@ -62,12 +62,12 @@
 				var spriteMaterial = new THREE.SpriteMaterial( { map: spriteMap, color: 0xffffff } );
 				
 		
-				var width = spriteMaterial.map.image.width;
-				var height = spriteMaterial.map.image.height;
+				var width = 100;//spriteMaterial.map.image.width;
+				var height = 100;//spriteMaterial.map.image.height;
 				
 				var particle = new THREE.Sprite( spriteMaterial );
 				
-				particle.scale.set( 100, 100, 1 );
+				particle.scale.set( width, height, 1 );
 				
 				particle.position.x = 0;
 				particle.position.y = 0;
