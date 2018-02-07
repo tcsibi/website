@@ -56,11 +56,11 @@
 			//	var material = new THREE.SpriteCanvasMaterial( { program: function ( context ){ context.drawImage(ball[0]),128,128} 	} );
 			
 				
-				var textureLoader = new THREE.TextureLoader();
-				var material = textureLoader.load( "ball0.png" );
+				var spriteMap = new THREE.TextureLoader().load( "ball0.png" );
+				var spriteMaterial = new THREE.SpriteMaterial( { map: spriteMap } );
 				
 				
-				var particle = new THREE.Sprite( material );
+				var particle = new THREE.Sprite( spriteMaterial );
 				particle.position.x = 0;
 				particle.position.y = 0;
 				particle.position.z = 0;
