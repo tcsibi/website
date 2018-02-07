@@ -177,6 +177,12 @@ function codef3D(dst, camZ, fov, near, far){
 			particle.position.x = vertices[i].x;
 			particle.position.y = vertices[i].y;
 			particle.position.z = vertices[i].z;
+			
+			var width = 128;//spriteMaterial.map.image.width;
+			var height = 128;//spriteMaterial.map.image.height;
+
+			particle.scale.set( width, height, 1 );
+			
 			this.group.add( particle );
 		}
 		
