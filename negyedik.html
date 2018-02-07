@@ -133,7 +133,7 @@
 	var spriteMap = new THREE.TextureLoader().load('ball0.png');
 	var spriteMaterial = new THREE.SpriteMaterial( { map: spriteMap, color: 0xffffff } );	 
 	var particle = new THREE.Sprite( spriteMaterial );
-	particle.scale.set( width, height, 1 );
+	particle.scale.set( 128, 128, 1 );
 	particle.position.x = -300;
 	particle.position.y = -300;
 	particle.position.z = -300;
