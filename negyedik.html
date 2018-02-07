@@ -134,14 +134,11 @@
 	var spriteMaterial = new THREE.SpriteMaterial( { map: spriteMap, color: 0xffffff } );	 
 	var particle = new THREE.Sprite( spriteMaterial );
 	particle.scale.set( 128, 128, 1 );
-	particle.position.x = -300;
-	particle.position.y = -300;
-	particle.position.z = -300;
+	particle.position.x = 0;
+	particle.position.y = 0;
+	particle.position.z = 0;
 	groupBall.add( particle );	
-	var geometry = new THREE.BoxGeometry( 251, 251, 251 );
-	var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-	var cube = new THREE.Mesh( geometry, material );
-	groupBall.add( cube );
+
 	sceneBall.add( groupBall );		 
 	rendererBall = new THREE.WebGLRenderer( { antialias: true } );
 	rendererBall.setSize( window.innerWidth, window.innerHeight );
