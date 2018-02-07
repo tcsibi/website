@@ -167,7 +167,7 @@ function codef3D(dst, camZ, fov, near, far){
 	this.vectorball_img=function(vertices,img){
 		
 			var spriteMap = new THREE.TextureLoader().load('ball0.png');
-			var spriteMaterial = new THREE.SpriteMaterial( { map: spriteMap, color: 0xffffff } );
+			var spriteMaterial = new THREE.SpriteCanvasMaterial( { map: spriteMap, color: 0xffffff } );
 		
 		for(var i=0; i<vertices.length; i++){
 			eval('plop=function ( context ){context.drawImage(img['+vertices[i].img+'].img,-'+img[vertices[i].img].img.width/2+',-'+img[vertices[i].img].img.height/2+');}');
