@@ -136,9 +136,9 @@
 	for(var i=0; i<myobjvert.length; i++){
 		var particle = new THREE.Sprite( spriteMaterial );
 		particle.scale.set( 128, 128, 1 );
-		particle.position.x = 100 * vertices[i].x;
-		particle.position.y = 100 * vertices[i].y;
-		particle.position.z = 100 * vertices[i].z;
+		particle.position.x = 100 * myobjvert[i].x;
+		particle.position.y = 100 * myobjvert[i].y;
+		particle.position.z = 100 * myobjvert[i].z;
 		groupBall.add( particle );	
 	}	 
 		 
