@@ -28,7 +28,7 @@ THE SOFTWARE.
 
 function codef3D(dst, camZ, fov, near, far){
 
-	this.renderer = new THREE.CanvasRenderer({ canvas: dst.canvas});
+	this.renderer = new THREE.WebGLRenderer({ canvas: dst.canvas});
 	this.renderer.setSize( dst.width, dst.height );
 	this.renderer.autoClear=false;
 
