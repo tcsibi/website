@@ -177,9 +177,9 @@ function codef3D(dst, camZ, fov, near, far){
 			var spriteMaterial = new THREE.SpriteMaterial( { map: spriteMap, color: 0xffffff } );
 			
 			var particle = new THREE.Sprite( spriteMaterial );
-			particle.position.x = 300 * vertices[i].x ;
-			particle.position.y = 300 * vertices[i].y;
-			particle.position.z = 300 * vertices[i].z;
+			particle.position.x = 100 * vertices[i].x ;
+			particle.position.y = 100 * vertices[i].y;
+			particle.position.z = 100 * vertices[i].z;
 			
 			var width = 128;//spriteMaterial.map.image.width;
 			var height = 128;//spriteMaterial.map.image.height;
