@@ -78,13 +78,13 @@
 				
 				particle2.scale.set( width, height, 1 );
 				
-				particle2.position.x = 0.5;
-				particle2.position.y = 0.5;
-				particle2.position.z = 0.5;
+				particle2.position.x = 300;
+				particle2.position.y = 300;
+				particle2.position.z = 300;
 				group.add( particle2 );
 				
 				
-				var geometry = new THREE.BoxGeometry( 51, 51, 51 );
+				var geometry = new THREE.BoxGeometry( 251, 251, 251 );
 				var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
 				var cube = new THREE.Mesh( geometry, material );
 				group.add( cube );
