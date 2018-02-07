@@ -173,10 +173,13 @@ function codef3D(dst, camZ, fov, near, far){
 			program: plop
 			} );
 			
-			var particle = new THREE.Sprite( material );
-			particle.position.x = 200 * vertices[i].x ;
-			particle.position.y = 200 * vertices[i].y;
-			particle.position.z = 200 * vertices[i].z;
+			var spriteMap = new THREE.TextureLoader().load('ball0.png');
+			var spriteMaterial = new THREE.SpriteMaterial( { map: spriteMap, color: 0xffffff } );
+			
+			var particle = new THREE.Sprite( spriteMaterial );
+			particle.position.x = 300 * vertices[i].x ;
+			particle.position.y = 300 * vertices[i].y;
+			particle.position.z = 300 * vertices[i].z;
 			
 			var width = 128;//spriteMaterial.map.image.width;
 			var height = 128;//spriteMaterial.map.image.height;
