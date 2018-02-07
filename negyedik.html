@@ -15,7 +15,7 @@
     <script src="codef_3d.js"></script>   
     <script> 
      
-	
+	var cameraBall, sceneBall, rendererBall;
 	    
 	var fast2 = new Modplayer();	 
 	fast2.onReady=function(){fast2.play()}
@@ -123,6 +123,29 @@
 	 my3d=new codef3D(mycanvas, 1500, 60, 1, 2000 );
 	 my3d.vectorball_img(myobjvert, ball );
 	 //my3d.group.scale.x=my3d.group.scale.y=my3d.group.scale.z=20;
+		 
+		 
+		 
+	cameraBall = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 1, 2000 );
+	cameraBall.position.z = 1500;
+	sceneBall = new THREE.Scene();
+	groupBall = new THREE.Object3D();	 
+	var spriteMap = new THREE.TextureLoader().load('ball0.png');
+	var spriteMaterial = new THREE.SpriteMaterial( { map: spriteMap, color: 0xffffff } );	 
+	var particle = new THREE.Sprite( spriteMaterial );
+	particle.scale.set( width, height, 1 );
+	particle.position.x = -300;
+	particle.position.y = -300;
+	particle.position.z = -300;
+	groupBall.add( particle );	
+	var geometry = new THREE.BoxGeometry( 251, 251, 251 );
+	var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+	var cube = new THREE.Mesh( geometry, material );
+	groupBall.add( cube );
+	sceneBall.add( groupBall );		 
+	rendererBall = new THREE.WebGLRenderer( { antialias: true } );
+	rendererBall.setSize( window.innerWidth, window.innerHeight );
+	 
 
 	GL_Canvas = new THREE.WebGLRenderer({ antialias:true});
 	GL_Canvas.setSize(640,480);	
@@ -161,20 +184,20 @@
 	 mycanvas.fill('#000000');
 				 
 
-	if(my3d.group.position.z < 800)
+	if(1)//(my3d.group.position.z < 800)
 	{
-		my3d.group.rotation.x+=0.01;
-		my3d.group.rotation.y+=0.02;
-		my3d.group.rotation.z+=0.04;
+		groupBall.rotation.x+=0.01;
+		groupBall.rotation.y+=0.02;
+		groupBall.rotation.z+=0.04;
 
 		//if(ballstrtflg==1){my3d.group.position.z+=3;}
 
 		if(ballstrtflg==1){
-		  my3d.group.scale.x=my3d.group.scale.y=  (my3d.group.scale.z+=2);
+		  //my3d.group.scale.x=my3d.group.scale.y=  (my3d.group.scale.z+=2);
 		}
 		
 		
-		my3d.draw();
+		mycanvas.contex.drawImage(rendererBall.domElement,0,0);
 	}
 	else
 	{
