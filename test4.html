@@ -74,6 +74,15 @@
 				particle.position.z = 0;
 				group.add( particle );
 				
+				var particle2 = new THREE.Sprite( spriteMaterial );
+				
+				particle2.scale.set( width, height, 1 );
+				
+				particle2.position.x = 0.5;
+				particle2.position.y = 0.5;
+				particle2.position.z = 0.5;
+				group.add( particle );
+				
 				scene.add( group );
 
 
@@ -96,6 +105,9 @@
 
 				requestAnimationFrame( animate );
 
+				scene.group.rotation.x+=0.01;
+				scene.group.rotation.y+=0.02;
+				scene.group.rotation.z+=0.04;
 
 
 				renderer.render( scene, camera );
