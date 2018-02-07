@@ -41,12 +41,12 @@
 	var mycanvas;
 	var my3d;
 	var ball = new Array();
-	ball[0]=new image('ball0.png');
-	ball[1]=new image('ball1.png');
-	ball[2]=new image('ball2.png');
-	ball[3]=new image('ball3.png');
+	ball[0]= new THREE.TextureLoader().load('ball0.png');
+	ball[1]= new THREE.TextureLoader().load('ball1.png');
+	ball[2]= new THREE.TextureLoader().load('ball2.png');
+	ball[3]= new THREE.TextureLoader().load('ball3.png');
 
-	var myobj = new Array();
+	//var myobj = new Array();
 	var myobjvert = new Array();
       myobjvert=[{x:-1, y:-1, z:-1, img:0},
 		 {x: 1, y:-1, z:-1, img:1},
@@ -130,11 +130,10 @@
 	cameraBall.position.z = 1500;
 	sceneBall = new THREE.Scene();
 	groupBall = new THREE.Object3D();	 
-	var spriteMap = new THREE.TextureLoader().load('ball0.png');
-	var spriteMaterial = new THREE.SpriteMaterial( { map: spriteMap, color: 0xffffff } );	
+	
 		 
 	for(var i=0; i<myobjvert.length; i++){
-		var particle = new THREE.Sprite( spriteMaterial );
+		var particle = new THREE.Sprite( new THREE.SpriteMaterial( { map: ball[myobjvert[i].img], color: 0xffffff } ) );
 		particle.scale.set( 128, 128, 1 );
 		particle.position.x = 100 * myobjvert[i].x;
 		particle.position.y = 100 * myobjvert[i].y;
