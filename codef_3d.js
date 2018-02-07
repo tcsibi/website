@@ -174,9 +174,9 @@ function codef3D(dst, camZ, fov, near, far){
 			} );
 			
 			var particle = new THREE.Sprite( material );
-			particle.position.x = vertices[i].x;
-			particle.position.y = vertices[i].y;
-			particle.position.z = vertices[i].z;
+			particle.position.x = 200 * vertices[i].x ;
+			particle.position.y = 200 * vertices[i].y;
+			particle.position.z = 200 * vertices[i].z;
 			
 			var width = 128;//spriteMaterial.map.image.width;
 			var height = 128;//spriteMaterial.map.image.height;
