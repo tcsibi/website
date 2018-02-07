@@ -27,6 +27,8 @@
 
 		<script>
 
+			var spriteMap = new THREE.TextureLoader().load( "ball0.png" );
+			
 			var ball = new Array();
 			ball[0]=new image('ball0.png');
 			ball[1]=new image('ball1.png');
@@ -56,7 +58,7 @@
 			//	var material = new THREE.SpriteCanvasMaterial( { program: function ( context ){ context.drawImage(ball[0]),128,128} 	} );
 			
 				
-				var spriteMap = new THREE.TextureLoader().load( "ball0.png" );
+				
 				var spriteMaterial = new THREE.SpriteMaterial( { map: spriteMap, color: 0xffffff } );
 				
 		
