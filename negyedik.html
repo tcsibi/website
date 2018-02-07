@@ -184,17 +184,13 @@
 	 mycanvas.fill('#000000');
 				 
 
-	if(1)//(my3d.group.position.z < 800)
+	if(groupBall.position.z < 1500)
 	{
 		groupBall.rotation.x+=0.01;
 		groupBall.rotation.y+=0.02;
 		groupBall.rotation.z+=0.04;
 
-		//if(ballstrtflg==1){my3d.group.position.z+=3;}
-
-		if(ballstrtflg==1){
-		  //my3d.group.scale.x=my3d.group.scale.y=  (my3d.group.scale.z+=2);
-		}
+		if(ballstrtflg==1){groupBall.position.z+=10;}
 		
 		rendererBall.render( sceneBall, cameraBall );
 		mycanvas.contex.drawImage(rendererBall.domElement,0,0);
