@@ -15,6 +15,10 @@
     <script src="codef_3d.js"></script>   
     <script> 
      
+	var vertfont = new image('font2.png');
+	var verttext = new scrolltext_vertical();
+	verttext.scrtxt="SJDFKASDJFKLSDAJFLKSADJFLKSDAJFLKSADJFKLASDJFKLSADJFKLDSAJFKL";
+	    
 	var cameraBall, sceneBall, rendererBall;
 	    
 	var fast2 = new Modplayer();	 
@@ -176,7 +180,8 @@
 	 mycanvasSmall=new canvas(160,480,"navigation");
 	 mycanvasSmall.fill('#000000');
 	 myrond2 = new rond(160/2,244,190,160,0.077) ;
-
+	 verttext.init(mycanvasSmall,vertfont,1);	
+		 
 	 go();
 	 }
 
@@ -218,6 +223,7 @@
 	mycanvasSmall.fill('#002042');
 	do_triangles() ;
 	myrond2.movenext() ;
+	verttext.draw(0);
 
 	requestAnimFrame( go );
 	}	  
