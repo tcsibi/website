@@ -14,11 +14,19 @@
 
     <script src="codef_3d.js"></script>   
     <script> 
+	    
+	    
+	var pos=0;
+	var n=0;
+	var space = 15;
+	var ad=[];	    
+	var font  = new image('vision-font.png');
+	var font2  = new image('vision-font2.png');    
      
 	var vertfont = new image('font2.png');
 	vertfont.initTile(32,32,32);
 	var verttext = new scrolltext_vertical();
-	verttext.scrtxt="          HELLO FOLKS !!!                                                                 ";
+	verttext.scrtxt="             HELLO FOLKS !!!                                                                                                      ";
 	    
 	var cameraBall, sceneBall, rendererBall;
 	    
@@ -113,7 +121,15 @@
 	             
 	 function init(){
 		 
+	font.initTile(32,32,20);
+	font2.initTile(32,32,20);
+	
+	var text="                        YES!    LET'S HIT THAT FUNKY BEAT....    BLO IS BACK IN THE AIR!!!           FEATURING:    FACET WITH THE BIG LOGO, THE CHARS...  AND THE VSN SPRITES RIGHT HERE...         BLO WITH CODING, THE 32 COL VISION LOGO AND FRIENDSHIP SPRITES IN THE INTRO SCREEN...   ....AND OFCOURSE THE MUSIC!!! HELLO ,  FACET HERE.. . . NOW LETS BREAK THE DAY AND DRINK SOME COKE.. . . HERE IS HOMEBOY , OUR LATEST MEMBER OF VISION... HE IS DOING CODING FOR US    HE IS ALSO THE GUY THAT WILL DO THE VISION MICRODEMO TWO... . .  MAYBE HE WILL RELEASE IT ON OUR PARTY.. ..OKAY HERE HE IS .. . .  HERE I AM....BYE.... GEGROET HIER IS JE MEEST GELIEFDE HEIN DAT ZWIJN..... I DID NOTHING IN THIS DEMO AND I DON'T CARE,BECAUSE I'M VERY LAZY AND I DO NOTHING....           GRRRRRRRR ZE SPOTTEN MET ME...... EN DAT VIND IK NIET LIEF....GRRRRRRRR      IK VIND 'T HIER LAME.......       I'LL KUIT NOW....   BYE........                ... BLIEP, BLIEP  KGRR,....   THIS PROGRAM IS BEING SCRAMBLED!    MIRAGE IS TAKING OVER THE CONTROL!   FIRST I'M GOING TO DELETE HEIN-DESIGN 'CAUSE HE'S ANOYING ME!   SLAM!  BANG!  KICK! HA, HA!   HD IS DEAD!   PEACE IS BACK IN TOWN!   WE ARE HERE AT FACET'S PLACE.   THE PLACE IS PRETTY COOL, BUT THE ROOM IS MEGA-HOT!  MOST VISION DUDES ARE HERE AT THE MOMENT.   FACET, TSM, HEIN DESIGN, HOMEBOY AND BLO.   ALSO SOME BOTTLES OF COKE-AINE-   AND TWO DUDES FROM MIRAGE!   SLASH AND VECTOR   TSM AND VECTOR ARE VERY BUSY RIGHT NOW.   VECTOR THINKS THAT HIS VECTORS ARE FAST, BUT SO DOES TSM!   SOON:   FIGHT!   STAY TUNED...    QUESTION:  WHY IS SLASH'S CAR LAME?   WHEN I DROVE INTO FACET'S PLACE - 250 KM!- MY CAR COULD NOT PASS THE MAGIC 100 KM-H SPEED.   WE WENT ABOUT 98 KM-H, AND IT TOOK ABOUT 2.454632 HOURS TO GET TO OUR DESTINATION.   NEXT TIME WE'LL TAKE A FASTER CAR!   SJIT, BLO'S  COMPLANING ABOUT THE LENGHT OF MY TEXT...  ONLY 200 BYTES FREE...    O.K. AND OF TEXT...     ...NOT YET...    STILL COUNTING PIXELS?...          ...              END OF TEXT!                  ";
 
+	for(var ix=0;ix<=230;ix++){
+		letr[ix]=text.charCodeAt(ix);
+		ad[ix]=90+(ix*space);
+	}
 
 	var cntfihndl = document.getElementById('cntfi');
 	cntfihndl.addEventListener("animationend", function (e) { ballstrtflg = 1;	}	  );
@@ -210,6 +226,22 @@
 		texture.offset.x	= rot;
 		texture.needsUpdate	= true;
 		mycanvas.contex.drawImage(GL_Canvas.domElement,0,0);
+		
+		n+=0.020;
+		for(var i=0;i<=23;i++){
+			ad[i] = (ad[i]+1)%360;
+			var newn = ad[i];
+			var x = -Math.sin(newn*Math.PI/180)*170+360-16;
+			var y = Math.cos(newn*Math.PI/180)*170+267;
+
+			font2.drawTile(mycanvas,letr[i]-20,x+4,y+4,1,0,1,1);
+			font.drawTile(mycanvas,letr[i]-20,x,y,1,0,1,1);
+
+			if(ad[i]==180){
+			letr[i]=text.charCodeAt(pos);
+			pos++;
+			if(pos> text.length-1) {pos=0;}
+		} 
 	}
 		 
 	canvasBanner.fill('#000000');
