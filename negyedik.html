@@ -14,6 +14,87 @@
 
     <script src="codef_3d.js"></script>   
     <script> 
+	
+	    
+	var cubeSr = [
+		//////// FRONT ////////
+		{x:	  0, y:  0, z:10}, //P0 Front
+		{x:	-10, y: 10, z:10}, //P1
+		{x:  10, y: 10, z:10}, //P2
+		{x:  10, y:-10, z:10}, //P3
+		{x: -10, y:-10, z:10}, //P4
+		/// TOP /////////
+		{x:   0, y: 10, z:0}, //P0 Top 5
+		{x:  10, y: 10, z:-10}, //P3 Top  6
+		{x: -10, y: 10, z:-10}, //P4 Top  7
+		/// BOTTOM /////////
+		{x:   0, y: -10, z:0}, //P0 Top 8
+		{x:  10, y: -10, z:-10}, //P3 Top  9
+		{x: -10, y: -10, z:-10}, //P4 Top  10
+	///////// BACK ///////////	
+	  {x:	  0, y:  0, z:-10}, //P0 Back 11
+	 ////////RIGHT ////////////////////
+	  {x:	 10, y:  0, z:0}, //P0 right p12
+	   ////////LEFT ////////////////////
+	  {x:	 -10, y:  0, z:0}, //P0 left p13
+	];
+
+	var cubeSrObj = [ 
+		{p1:0, p2:1, p3:2, params:new THREE.MeshLambertMaterial({ color: 0x550055, transparent:true, opacity:0.6, side: THREE.DoubleSide})},
+		{p1:0, p2:2, p3:3, params:new THREE.MeshLambertMaterial({ color: 0xffffff, transparent:true, opacity:0.6, side: THREE.DoubleSide})},
+		{p1:0, p2:3, p3:4, params:new THREE.MeshLambertMaterial({ color: 0x550055, transparent:true, opacity:0.6, side: THREE.DoubleSide})},
+		{p1:0, p2:4, p3:1, params:new THREE.MeshLambertMaterial({ color: 0xffffff, transparent:true, opacity:0.6, side: THREE.DoubleSide})},
+
+		{p1:5, p2:1, p3:2, params:new THREE.MeshLambertMaterial({ color: 0xffffff, transparent: true, opacity:0.6, side: THREE.DoubleSide})},
+		{p1:5, p2:2, p3:6, params:new THREE.MeshLambertMaterial({ color: 0x550055, transparent: true, opacity:0.6, side: THREE.DoubleSide})},
+		{p1:5, p2:6, p3:7, params:new THREE.MeshLambertMaterial({ color: 0xffffff, transparent: true, opacity:0.6, side: THREE.DoubleSide})},
+		{p1:5, p2:7, p3:1, params:new THREE.MeshLambertMaterial({ color: 0x550055, transparent: true, opacity:0.6, side: THREE.DoubleSide})},
+
+		{p1:8, p2:3, p3:4, params:new THREE.MeshLambertMaterial({ color: 0xffffff, transparent: true, opacity:0.6, side: THREE.DoubleSide})},
+		{p1:8, p2:9, p3:3, params:new THREE.MeshLambertMaterial({ color: 0x550055, transparent: true, opacity:0.6, side: THREE.DoubleSide})},
+		{p1:8, p2:9, p3:10, params:new THREE.MeshLambertMaterial({ color: 0xffffff, transparent: true, opacity:0.6, side: THREE.DoubleSide})},
+		{p1:8, p2:4, p3:10, params:new THREE.MeshLambertMaterial({ color: 0x550055, transparent: true, opacity:0.6, side: THREE.DoubleSide})},
+
+		{p1:11, p2:6, p3:7, params:new THREE.MeshLambertMaterial({ color: 0x550055, transparent:true, opacity:0.6, side: THREE.DoubleSide})},
+		{p1:11, p2:7, p3:10, params:new THREE.MeshLambertMaterial({ color: 0xffffff, transparent:true, opacity:0.6, side: THREE.DoubleSide})},
+		{p1:11, p2:9, p3:10, params:new THREE.MeshLambertMaterial({ color: 0x550055, transparent:true, opacity:0.6, side: THREE.DoubleSide})},
+		{p1:11, p2:6, p3:9, params:new THREE.MeshLambertMaterial({ color: 0xffffff, transparent:true, opacity:0.6, side: THREE.DoubleSide})},
+
+		{p1:12, p2:2, p3:3, params:new THREE.MeshLambertMaterial({ color: 0x550055, transparent:true, opacity:0.6, side: THREE.DoubleSide})},
+		{p1:12, p2:2, p3:6, params:new THREE.MeshLambertMaterial({ color: 0xffffff, transparent:true, opacity:0.6, side: THREE.DoubleSide})},
+		{p1:12, p2:6, p3:9, params:new THREE.MeshLambertMaterial({ color: 0x550055, transparent:true, opacity:0.6, side: THREE.DoubleSide})},
+		{p1:12, p2:3, p3:9, params:new THREE.MeshLambertMaterial({ color: 0xffffff, transparent:true, opacity:0.6, side: THREE.DoubleSide})},
+
+		{p1:13, p2:1, p3:4, params:new THREE.MeshLambertMaterial({ color: 0x550055, transparent:true, opacity:0.6, side: THREE.DoubleSide})},
+		{p1:13, p2:4, p3:10, params:new THREE.MeshLambertMaterial({ color: 0xffffff, transparent:true, opacity:0.6, side: THREE.DoubleSide})},
+		{p1:13, p2:10, p3:7, params:new THREE.MeshLambertMaterial({ color: 0x550055, transparent:true, opacity:0.6, side: THREE.DoubleSide})},
+		{p1:13, p2:7, p3:1, params:new THREE.MeshLambertMaterial({ color: 0xffffff, transparent:true, opacity:0.6, side: THREE.DoubleSide})}
+
+	];	    
+
+	
+
+	function createCubeSr(vertices,object,doubleSided,overdraw){
+     		var geom = new THREE.Geometry(); 
+		for(var i=0; i<vertices.length; i++){
+			geom.vertices.push(new THREE.Vector3( vertices[i].x,  vertices[i].y,  vertices[i].z));
+		}
+		var materials=[];
+		for(var i=0; i<object.length; i++){
+			object[i].params.overdraw = overdraw;
+			materials.push(object[i].params);
+			geom.faces.push( new THREE.Face3( object[i].p1,object[i].p2,object[i].p3, null, null, i ));	
+		}
+
+		geom.computeFaceNormals();
+		geom.computeVertexNormals();
+
+
+		form = new THREE.Mesh( geom, new THREE.MeshFaceMaterial(materials));
+    		form.scale.set(0.3,0.3,0.3);
+		cubeSrGroup.add(form );
+	}
+	    
 	    
 	var cubeSrGroup = new THREE.Object3D();
 	    
@@ -169,7 +250,7 @@
 		cube.position.x = 320; 
 		cube.position.y = 240;
 		cube.scale.set( 150, 150, 150 );
-		cubeSrGroup.add( cube ); 
+		//cubeSrGroup.add( cube ); 
 		 
 		 
 		sceneBall.add( groupBall );	
@@ -199,11 +280,21 @@
 		cylinder.rotation.x	= -Math.PI/2;
 		scene.add( cylinder );	 
 		 
-		
-		 
-		 scene.add( cubeSrGroup );
-		 
-		 
+
+		for(var i=0; i < 80; i++){
+			createCubeSr(cubeSr, cubeSrObj,true,false);
+		}
+		for (j = 0; j < cubeSrGroup.children.length; j++) {
+
+		if(j%i){
+			cubeSrGroup.children[j].position.z=(-30*j);
+		}else
+			cubeSrGroup.children[j].position.z=(-5*j);
+			cubeSrGroup.children[j].position.x=Math.floor(Math.random()*101)-50;
+			cubeSrGroup.children[j].position.y=Math.floor(Math.random()*101)-50;
+		}
+		scene.add(cubeSrGroup);
+		cubeSrGroup.position.z=-200;
 
 		 mycanvasSmall=new canvas(160,480,"navigation");
 		 mycanvasSmall.fill('#000000');
@@ -236,6 +327,14 @@
 		texture.offset.y	+= 0.05;
 		texture.offset.x	= rot;
 		texture.needsUpdate	= true;
+		
+		for (j = 0; j < cubeSrGroup.children.length; j++) {
+			cubeSrGroup.children[j].rotation.z+=0.05;
+			cubeSrGroup.children[j].position.z+=1.3;
+			if(cubeSrGroup.children[j].position.z>=340)cubeSrGroup.children[j].position.z=-200;
+			cubeSrGroup.children[j].rotation.x+=0.03;
+		}
+		
 		mycanvas.contex.drawImage(GL_Canvas.domElement,0,0);
 		
 
