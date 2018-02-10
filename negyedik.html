@@ -15,6 +15,7 @@
     <script src="codef_3d.js"></script>   
     <script> 
 	
+	var flash = 0;
 	    
 	var cubeSr = [
 		//////// FRONT ////////
@@ -335,7 +336,14 @@
 			cubeSrGroup.children[j].rotation.x+=0.03;
 		}
 		
-		mycanvas.contex.drawImage(GL_Canvas.domElement,0,0);
+		if( (flash=5) || (flash=10) || (flash=15) || (flash>20) ) 
+		{ 
+			mycanvas.contex.drawImage(GL_Canvas.domElement,0,0);
+		}
+		else
+		{
+			flash++;
+		}
 		
 
 		for(var i=0;i<=23;i++){
