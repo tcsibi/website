@@ -122,19 +122,7 @@
 }
 	             
 	 function init(){
-		 
-		var geometry = new THREE.BoxGeometry( 150, 150, 150 );
-		for ( var i = 0; i < geometry.faces.length; i += 2 ) {
-			var hex = Math.random() * 0xffffff;
-			geometry.faces[ i ].color.setHex( hex );
-			geometry.faces[ i + 1 ].color.setHex( hex );
-		}
-		var material = new THREE.MeshBasicMaterial( { vertexColors: THREE.FaceColors, overdraw: 0.5 } );
-		cube = new THREE.Mesh( geometry, material );
-		//cube.position.x = 320; 
-		//cube.position.y = 240;
-		cube.scale.set( 150, 150, 150 );
-		 
+				 
 		font.initTile(32,32,20);
 		font2.initTile(32,32,20);
 
@@ -170,8 +158,28 @@
 
 
 		sceneBall.add( groupBall );	
+	
+		 		var geometry = new THREE.BoxGeometry( 150, 150, 150 );
+		for ( var i = 0; i < geometry.faces.length; i += 2 ) {
+			var hex = Math.random() * 0xffffff;
+			geometry.faces[ i ].color.setHex( hex );
+			geometry.faces[ i + 1 ].color.setHex( hex );
+		}
+		var material = new THREE.MeshBasicMaterial( { vertexColors: THREE.FaceColors, overdraw: 0.5 } );
+		cube = new THREE.Mesh( geometry, material );
+		//cube.position.x = 320; 
+		//cube.position.y = 240;
+		cube.scale.set( 150, 150, 150 );
+		 sceneBall.add( cube ); 
 		 
-		sceneBall.add( cube ); 
+		 var geometry = new THREE.PlaneBufferGeometry( 200, 200 );
+				geometry.rotateX( - Math.PI / 2 );
+				var material = new THREE.MeshBasicMaterial( { color: 0xe0e0e0, overdraw: 0.5 } );
+				plane = new THREE.Mesh( geometry, material );
+				scene.add( plane );
+		sceneBall.add( plane ); 
+		 
+		 
 		rendererBall = new THREE.WebGLRenderer( { antialias: true } );
 		rendererBall.setSize( 640, 480 );
 
