@@ -105,7 +105,7 @@
 	var letr=[];
 	var font  = new image('vision-font.png');
 	var font2  = new image('vision-font2.png');    
-    	var text="                  WELL....  THIS IS THE CYLINDER EFFECT...         ROTATING TEXT IMPLEMENTED...           !! WATCH OUT FOR THE CUBES !!                                                            "; 
+    	var text="                          WELL....  THIS IS THE CYLINDER EFFECT...         ROTATING TEXT IMPLEMENTED...           !! WATCH OUT FOR THE CUBES !!                                                            "; 
 	
 	
 	var vertfont = new image('font2.png');
@@ -287,14 +287,14 @@
 		for (j = 0; j < cubeSrGroup.children.length; j++) {
 
 		if(j%i){
-			cubeSrGroup.children[j].position.z=(-30*j);
+			cubeSrGroup.children[j].position.z=(-130*j);
 		}else
-			cubeSrGroup.children[j].position.z=(-5*j);
+			cubeSrGroup.children[j].position.z=(-105*j);
 			cubeSrGroup.children[j].position.x=Math.floor(Math.random()*101)-50;
 			cubeSrGroup.children[j].position.y=Math.floor(Math.random()*101)-50;
 		}
 		//scene.add(cubeSrGroup);
-		cubeSrGroup.position.z=-200;
+		cubeSrGroup.position.z=-300;
 
 		 mycanvasSmall=new canvas(160,480,"navigation");
 		 mycanvasSmall.fill('#000000');
