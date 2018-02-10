@@ -223,11 +223,11 @@
 		mycanvas.contex.drawImage(GL_Canvas.domElement,0,0);
 		
 
-		for(var i=0;i<=20;i++){
+		for(var i=0;i<=23;i++){
 			ad[i] = (ad[i]+1)%360;
 			var newn = ad[i];
 			var x = -Math.sin(newn*Math.PI/180)*200 + 320 - 16;
-			var y = Math.cos(newn*Math.PI/180)*250 + 240 - 16;
+			var y = Math.cos(newn*Math.PI/180)*300 + 240 - 16;
 
 			font2.drawTile(mycanvas,letr[i]-20,x+4,y+4,1,0,1,1);
 			font.drawTile(mycanvas,letr[i]-20,x,y,1,0,1,1);
