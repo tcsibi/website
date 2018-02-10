@@ -16,8 +16,7 @@
     <script> 
 	    
 	    
-	var pos=0;
-	var n=0;
+	var pos=0, n=0, rot=0;
 	var space = 15;
 	var ad=[];
 	var letr=[];
@@ -224,13 +223,14 @@
 		
 
 		for(var i=0;i<=23;i++){
-			ad[i] = (ad[i]+1)%360;
+			ad[i] = (ad[i]+1)%360; 
+			rot = (rot+1)%360;
 			var newn = ad[i];
 			var x = -Math.sin(newn*Math.PI/180)*200 + 320 - 16;
 			var y = Math.cos(newn*Math.PI/180)*300 + 240 - 16;
 
-			font2.drawTile(mycanvas,letr[i]-20,x+4,y+4,1,0,1,1);
-			font.drawTile(mycanvas,letr[i]-20,x,y,1,0,1,1);
+			font2.drawTile(mycanvas,letr[i]-20,x+4,y+4,1,rot,1,1);
+			font.drawTile(mycanvas,letr[i]-20,x,y,1,rot,1,1);
 
 			if(ad[i]==180){
 				letr[i]=text.charCodeAt(pos);
