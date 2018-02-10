@@ -14,7 +14,41 @@
 
     <script src="codef_3d.js"></script>   
     <script> 
+	    
 	
+	var ribObjvert = new Array();
+	myobjvert=[
+		{x:-1, y:1, z: 1},
+		{x: -1, y:-1, z: 1},
+		{x: 1, y:-1, z: 1},
+		{x: 1, y:1, z: 1},
+
+		{x: 1, y:1, z: -1},
+		{x: 1, y:-1, z: -1},
+		{x: -1, y:-1, z: -1},
+		{x: -1, y:1, z: -1},
+	];
+	    
+        var ribObj = new Array();
+        ribObj=[ 
+		{p1:0, p2:1, p3:2, params:new MeshLambertMaterial({ color: 0x00aaff, shading: SmoothShading})},
+		{p1:0, p2:2, p3:3, params:new MeshLambertMaterial({ color: 0x00aaff, shading: SmoothShading})},
+
+		{p1:3, p2:2, p3:5, params:new MeshLambertMaterial({ color: 0x00aaff, shading: SmoothShading})},
+		{p1:3, p2:5, p3:4, params:new MeshLambertMaterial({ color: 0x00aaff, shading: SmoothShading})},
+
+		{p1:4, p2:5, p3:6, params:new MeshLambertMaterial({ color: 0x00aaff, shading: SmoothShading})},
+		{p1:4, p2:6, p3:7, params:new MeshLambertMaterial({ color: 0x00aaff, shading: SmoothShading})},
+
+		{p1:7, p2:6, p3:1, params:new MeshLambertMaterial({ color: 0x00aaff, shading: SmoothShading})},
+		{p1:7, p2:1, p3:0, params:new MeshLambertMaterial({ color: 0x00aaff, shading: SmoothShading})},
+	];
+
+	mylines=new Array();
+	    
+	    
+	    
+	    
 	var flash = 0;
 	    
 	var cubeSr = [
@@ -282,7 +316,7 @@
 		scene.add( cylinder );	 
 		 
 
-		for(var i=0; i < 80; i++){
+		for(var i=0; i < 160; i++){
 			createCubeSr(cubeSr, cubeSrObj,true,false);
 		}
 		for (j = 0; j < cubeSrGroup.children.length; j++) {
