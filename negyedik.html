@@ -287,12 +287,12 @@
 		}
 		for (j = 0; j < cubeSrGroup.children.length; j++) {
 
-		if(j%i){
-			cubeSrGroup.children[j].position.z=(-330*j);
-		}else
-			cubeSrGroup.children[j].position.z=(-305*j);
-			cubeSrGroup.children[j].position.x=Math.floor(Math.random()*101)-50;
-			cubeSrGroup.children[j].position.y=Math.floor(Math.random()*101)-50;
+			if(j%i){
+				cubeSrGroup.children[j].position.z=(-430*j);
+			}else
+				cubeSrGroup.children[j].position.z=(-405*j);
+				cubeSrGroup.children[j].position.x=Math.floor(Math.random()*101)-50;
+				cubeSrGroup.children[j].position.y=Math.floor(Math.random()*101)-50;
 		}
 		//scene.add(cubeSrGroup);
 		cubeSrGroup.position.z=-300;
@@ -331,12 +331,12 @@
 		
 		for (j = 0; j < cubeSrGroup.children.length; j++) {
 			cubeSrGroup.children[j].rotation.z+=0.05;
-			cubeSrGroup.children[j].position.z+=1.3;
-			if(cubeSrGroup.children[j].position.z>=340)cubeSrGroup.children[j].position.z=-200;
 			cubeSrGroup.children[j].rotation.x+=0.03;
+			
+			if((cubeSrGroup.children[j].position.z+=1.3)>=340)cubeSrGroup.children[j].position.z=-200;
 		}
 		
-		if( (flash==20) || (flash==40) || (flash==60) || (flash>70) ) 
+		if( (flash==20) || (flash==40) || (flash==60) || (flash>=70) ) 
 		{ 
 			mycanvas.contex.drawImage(GL_Canvas.domElement,0,0);
 		}
