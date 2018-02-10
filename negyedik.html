@@ -156,10 +156,7 @@
 			groupBall.add( particle );	
 		}	 
 
-
-		sceneBall.add( groupBall );	
-	
-		 		var geometry = new THREE.BoxGeometry( 150, 150, 150 );
+		var geometry = new THREE.BoxGeometry( 150, 150, 150 );
 		for ( var i = 0; i < geometry.faces.length; i += 2 ) {
 			var hex = Math.random() * 0xffffff;
 			geometry.faces[ i ].color.setHex( hex );
@@ -169,16 +166,12 @@
 		cube = new THREE.Mesh( geometry, material );
 		//cube.position.x = 320; 
 		//cube.position.y = 240;
-		cube.scale.set( 150, 150, 150 );
-		 sceneBall.add( cube ); 
+		//cube.scale.set( 150, 150, 150 );
+		groupBall.add( cube ); 
 		 
-		 var geometry = new THREE.PlaneBufferGeometry( 200, 200 );
-				geometry.rotateX( - Math.PI / 2 );
-				var material = new THREE.MeshBasicMaterial( { color: 0xe0e0e0, overdraw: 0.5 } );
-				plane = new THREE.Mesh( geometry, material );
-				scene.add( plane );
-		sceneBall.add( plane ); 
 		 
+		sceneBall.add( groupBall );	
+ 
 		 
 		rendererBall = new THREE.WebGLRenderer( { antialias: true } );
 		rendererBall.setSize( 640, 480 );
