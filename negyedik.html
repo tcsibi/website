@@ -15,6 +15,8 @@
     <script src="codef_3d.js"></script>   
     <script> 
 	    
+	var cubeSrGroup = new THREE.Object3D();
+	    
 	    
 	var pos=0, n=0, rot=0;
 	var space = 15, cube;
@@ -164,14 +166,13 @@
 		}
 		var material = new THREE.MeshBasicMaterial( { vertexColors: THREE.FaceColors, overdraw: 0.5 } );
 		cube = new THREE.Mesh( geometry, material );
-		//cube.position.x = 320; 
-		//cube.position.y = 240;
-		//cube.scale.set( 150, 150, 150 );
-		groupBall.add( cube ); 
+		cube.position.x = 320; 
+		cube.position.y = 240;
+		cube.scale.set( 150, 150, 150 );
+		cubeSrGroup.add( cube ); 
 		 
 		 
 		sceneBall.add( groupBall );	
- 
 		 
 		rendererBall = new THREE.WebGLRenderer( { antialias: true } );
 		rendererBall.setSize( 640, 480 );
@@ -187,11 +188,6 @@
 
 		scene.fog = new THREE.FogExp2( 0x000000, 0.007 );
 
-		//cbimage = new image('chessboard.png');	 
-		//texture = new THREE.Texture(cbimage);	
-
-		// texture	= new THREE.ImageUtils.loadTexture('chessboard.png', {}, function(){} );
-
 		var loader = new THREE.TextureLoader();
 		texture = loader.load( 'chessboard.png', function() {  });	 
 		texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
@@ -202,6 +198,12 @@
 		cylinder.position.set( 0, 0, -100 );
 		cylinder.rotation.x	= -Math.PI/2;
 		scene.add( cylinder );	 
+		 
+		
+		 
+		 scene.add( cubeSrGroup );
+		 
+		 
 
 		 mycanvasSmall=new canvas(160,480,"navigation");
 		 mycanvasSmall.fill('#000000');
