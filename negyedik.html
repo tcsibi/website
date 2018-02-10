@@ -227,7 +227,7 @@
 		texture.needsUpdate	= true;
 		mycanvas.contex.drawImage(GL_Canvas.domElement,0,0);
 		
-		n+=0.020;
+
 		for(var i=0;i<=23;i++){
 			ad[i] = (ad[i]+1)%360;
 			var newn = ad[i];
@@ -238,10 +238,11 @@
 			font.drawTile(mycanvas,letr[i]-20,x,y,1,0,1,1);
 
 			if(ad[i]==180){
-			letr[i]=text.charCodeAt(pos);
-			pos++;
-			if(pos> text.length-1) {pos=0;}
-		} 
+				letr[i]=text.charCodeAt(pos);
+				pos++;
+				if(pos> text.length-1) {pos=0;}
+			} 
+		}
 	}
 		 
 	canvasBanner.fill('#000000');
