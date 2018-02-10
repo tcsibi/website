@@ -17,7 +17,7 @@
 	    
 	    
 	var pos=0, n=0, rot=0;
-	var space = 15;
+	var space = 15, cube;
 	var ad=[];
 	var letr=[];
 	var font  = new image('vision-font.png');
@@ -122,6 +122,17 @@
 }
 	             
 	 function init(){
+		 
+		var geometry = new THREE.BoxGeometry( 150, 150, 150 );
+		for ( var i = 0; i < geometry.faces.length; i += 2 ) {
+			var hex = Math.random() * 0xffffff;
+			geometry.faces[ i ].color.setHex( hex );
+			geometry.faces[ i + 1 ].color.setHex( hex );
+		}
+		var material = new THREE.MeshBasicMaterial( { vertexColors: THREE.FaceColors, overdraw: 0.5 } );
+		cube = new THREE.Mesh( geometry, material );
+		cube.position.x = 320; 
+		cube.position.y = 240;
 		 
 		font.initTile(32,32,20);
 		font2.initTile(32,32,20);
@@ -237,6 +248,8 @@
 				if(++pos >= text.length) {pos=0;}
 			} 
 		}
+		
+		if( pos == 12 ) { scene.add( cube ); };
 	}
 		 
 	canvasBanner.fill('#000000');
