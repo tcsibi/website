@@ -131,8 +131,9 @@
 		}
 		var material = new THREE.MeshBasicMaterial( { vertexColors: THREE.FaceColors, overdraw: 0.5 } );
 		cube = new THREE.Mesh( geometry, material );
-		cube.position.x = 320; 
-		cube.position.y = 240;
+		//cube.position.x = 320; 
+		//cube.position.y = 240;
+		cube.scale.set( 150, 150, 150 );
 		 
 		font.initTile(32,32,20);
 		font2.initTile(32,32,20);
