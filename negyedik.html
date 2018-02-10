@@ -49,7 +49,7 @@
 	    
 	    
 	    
-	var flash = 0;
+	var flash = 0, cubesOn = 0;
 	    
 	var cubeSr = [
 		//////// FRONT ////////
@@ -322,9 +322,9 @@
 		for (j = 0; j < cubeSrGroup.children.length; j++) {
 
 			if(j%i){
-				cubeSrGroup.children[j].position.z=(-140*j) - 800;
+				cubeSrGroup.children[j].position.z=(-140*j) - 400;
 			}else
-				cubeSrGroup.children[j].position.z=(-100*j) - 800;
+				cubeSrGroup.children[j].position.z=(-100*j) - 400;
 				cubeSrGroup.children[j].position.x=Math.floor(Math.random()*101)-50;
 				cubeSrGroup.children[j].position.y=Math.floor(Math.random()*101)-50;
 		}
@@ -376,7 +376,17 @@
 		}
 		if( flash < 70 ) { flash++; }
 		
+		if( cubesOn == 1 )
+		{
+			for (j = 0; j < cubeSrGroup.children.length; j++) {
+				cubeSrGroup.children[j].rotation.z+=0.05;
+				cubeSrGroup.children[j].rotation.x+=0.03;
 
+				if((cubeSrGroup.children[j].position.z+=1.3)>=340)cubeSrGroup.children[j].position.z=-200;
+			}		
+		}
+		
+		
 		for(var i=0;i<=23;i++){
 			ad[i] = (ad[i]+1)%360; 
 			rot = (rot+1)%360;
@@ -393,8 +403,8 @@
 			} 
 		}
 		
-		if( pos == 160 )	{ 
-			scene.add(cubeSrGroup);
+		if( pos == 160 ) { 
+			scene.add(cubeSrGroup); cubesOn = 1;
 		}
 	}
 		 
