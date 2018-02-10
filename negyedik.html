@@ -234,8 +234,7 @@
 
 			if(ad[i]==180){
 				letr[i]=text.charCodeAt(pos);
-				pos++;
-				if(pos> text.length-1) {pos=0;}
+				if(++pos >= text.length) {pos=0;}
 			} 
 		}
 	}
