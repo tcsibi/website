@@ -154,7 +154,7 @@
 	    
 	var fast2 = new Modplayer();	 
 	fast2.onReady=function(){fast2.play()}
-	fast2.repeat=true;
+	fast2.repeat=false;
 	fast2.load('hmd3.mod'); 	
 	  
 	var GL_Canvas;
@@ -247,7 +247,28 @@
 		var sinus=Math.floor(size*Math.sin(sa*speed)+size)
 		return sinus;
 	}
-	    
+		
+	var dance = new image('girl.png');
+	var logo = new image('dagon.png');
+	var bigfont = new image('bigfont.png');
+		
+	var txt = "     DAGON OF RAM JAM PRESENTS A NEW DEMO: HAPPY VALENTINE'S DAY!          THIS DEMO WAS INSPIRED BY THIS MEGATUNE: MENTAL DELIVRANCE           AND IT'S DEDICATED TO ALL LOVERS          SEE YA AT THE NEXT RELEASE          ";		
+	 
+	function get_random_color() {
+		r = Math.floor((Math.random() * 255) + 1);
+		g = Math.floor((Math.random() * 255) + 1); 
+		b = Math.floor((Math.random() * 255) + 1); 
+
+		return "rgb("+r+","+g+","+b+")";
+	}
+
+	function changeColor(dest,color){
+		colorCanvas.fill(color);
+		dest.contex.globalCompositeOperation='source-in';
+		colorCanvas.draw(dest);
+		dest.contex.globalCompositeOperation='source-over';
+	}	
+		
 	function init(){
 				 
 		font.initTile(32,32,20);
@@ -368,9 +389,48 @@
 			var y2d = Math.round((i+0) * scale);
 			ldp.push({x: x2d, y: y2d, s: scale+0.17});
 		}
+		
+		mycanvasLogo = new canvas(640,300);
+  		mycanvasFont = new canvas(640,480);
+  		colorCanvas = new canvas(1800,800);
+  
+  		mycanvasC1 = new canvas(1800,800);
+ 		mycanvasC2 = new canvas(1800,800);
+		
+		var scrolltexta = new scrolltext_horizontal(); 
+		bigfont.initTile(96,96,32);
+		scrolltexta.scrtxt = txt;
+		scrolltexta.init(mycanvasFont,bigfont,3);
+		
+		for(var i=0; i < 150; i++){
+			mycanvasC1.contex.beginPath();
+			mycanvasC1.contex.arc(900, 400, 10+i*10, 0, 2 * Math.PI, false);
+			mycanvasC1.contex.lineWidth = 6;
+			mycanvasC1.contex.strokeStyle = '#003300';
+			mycanvasC1.contex.stroke();
+		}
+
+		for(var i=0; i < 150; i++){
+			mycanvasC2.contex.beginPath();
+			mycanvasC2.contex.arc(900, 400, 10+i*10, 0, 2 * Math.PI, false);
+			mycanvasC2.contex.lineWidth = 6;
+			mycanvasC2.contex.strokeStyle = '#0000ff';
+			mycanvasC2.contex.stroke();
+		}
+		
+		mycanvasC1.contex.globalCompositeOperation="lighter";
+		mycanvasC2.contex.globalCompositeOperation="lighter";
+		mycanvas.contex.globalCompositeOperation="lighter";
+
+		dance.initTile(300,380,0);
+		logo.setmidhandle();
 
  		go();
 	}
+		
+	var c1= 0; var c2=0; var idx =0; var delay = 2;
+	var agirl = 0; var delayg = 3; var logozoom = 0; var rotlogo=0;
+	var delaystart = 400; var rotg =0; var xzoom = 1; var startlogo = -150;	var delaymaster = 3;
 
 	function go(){
 	
@@ -498,6 +558,76 @@
 			fcount++;
 			if(fcount>8) {	fcount=0; }				
 		}	
+		
+		if(mainStep == 5) { 
+			fast2.load('MentalDelivrance.xm'); 
+			mycanvasFont.clear();
+			mycanvasLogo.clear();
+	
+			if(delaymaster > 0){
+
+				x1 = -600 + 220 * Math.sin(c1) + 100 *  Math.cos(c1);
+				y1 = -200 + 120 * Math.sin(c1);
+				c1+=0.06;
+				x2 = -600 + 160 * Math.cos(c2-0.5) + 100 *  Math.sin(c2-0.5);
+				y2 = -160 - 100 * Math.cos(c2-0.5)  + 100 *  Math.sin(c2-0.5);
+				c2+=0.06;
+
+				agirl+=0.05;
+
+				if(delayg == 0){
+					dance.drawTile(mycanvas,idx,(160 + 40 *Math.sin(agirl)),40,0.3);
+					dance.drawTile(mycanvas,idx,(240 - 160 *Math.sin(agirl)),120,0.3,0,0.6,0.6);
+					dance.drawTile(mycanvas,idx,(240 + 160 *Math.sin(agirl)),120,0.3,0,0.6,0.6);
+					delayg = 3;
+				}
+				delayg--;
+
+				logo.draw(mycanvas,340,startlogo,1,rot,xzoom,xzoom);
+				logo.draw(mycanvas,340,(480 - (startlogo)),1,-rot,xzoom,xzoom);
+
+				if(delaystart > 0) delaystart--;
+
+				if(startlogo < 240 && delaystart == 0) startlogo++;
+
+				if(startlogo == 240){
+					scrolltexta.draw(0);
+					mycanvasFont.draw(mycanvas,0,-28,0.2,0,1.5,5.7);
+					rotg= 100 + 260 * Math.sin(rotlogo); 
+					xzoom = 0.8 + 0.6 * Math.sin(logozoom);
+					logozoom+=0.05;
+					rotlogo+=0.04;
+					rotlogo_=rotlogo;
+					for(var i = 0; i < 4; i++){
+						logo.draw(mycanvas,340,startlogo,0.4-i*0.09,(100 + 260 * Math.sin(rotlogo_)),xzoom,xzoom);
+						logo.draw(mycanvas,340,(480 - (startlogo)),0.4-i*0.09,-(100 + 260 * Math.sin(rotlogo_)),xzoom,xzoom);
+						rotlogo_+=0.1;
+					}
+				}
+
+				if(delay == 0) idx++;
+				if(idx > 27) idx = 0;
+				delay--;
+				if(delay < 0) delay = 2;
+
+				mycanvasC1.draw(mycanvas,x1,y1,0.6);
+				mycanvasC2.draw(mycanvas,x2,y2,0.6);
+			}
+			if((fast2.position == 10 || fast2.position == 11 || fast2.position == 23 || fast2.position == 24)){
+				delaymaster--;
+				changeColor(mycanvasC1,get_random_color());
+				changeColor(mycanvasC2,get_random_color());
+				if(fast2.row > 61){
+					changeColor(mycanvasC1,'#003300');
+				changeColor(mycanvasC2,'#0000ff');
+				}
+			if(delaymaster <= -2) delaymaster = 3;
+			}else{
+				delaymaster = 3;
+			}
+
+		}			
+		
 		 
 	canvasBanner.fill('#000000');
 	mystarfield.draw();
