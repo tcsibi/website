@@ -420,7 +420,7 @@
 		
 		mycanvasC1.contex.globalCompositeOperation="lighter";
 		mycanvasC2.contex.globalCompositeOperation="lighter";
-		mycanvas.contex.globalCompositeOperation="lighter";
+		
 
 		dance.initTile(300,380,0);
 		logo.setmidhandle();
@@ -560,6 +560,9 @@
 		}	
 		
 		if(mainStep == 5) { 
+			
+			mycanvas.contex.globalCompositeOperation="lighter";
+			
 			fast2.load('MentalDelivrance.xm'); 
 			mycanvasFont.clear();
 			mycanvasLogo.clear();
