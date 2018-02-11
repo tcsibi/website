@@ -422,7 +422,7 @@
 		//if(bally < 140) bally = 140; 
 		points[i] = {x:ballx,y:bally};
 	}		 
-	dotsiny = (dotsiny++)%360;
+	dotsiny = (dotsiny+1)%360;
 		
 		
 	mycanvasSmall.line( points[0].x+8, points[0].y+8,points[6].x+8, points[6].y+8, 3, "#b38ee8" );
