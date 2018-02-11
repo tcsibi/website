@@ -212,34 +212,41 @@
 		this.y = this.centrey ;
 
 		this.movenext = function () {
-		this.x = this.centrex + this.rayonx*Math.cos(this.angle+this.offset) ;
-		this.y = this.centrey + this.rayony*Math.sin(this.angle+this.offset) ;
-		this.angle += this.offset % (Math.PI*2) ;
+			this.x = this.centrex + this.rayonx*Math.cos(this.angle+this.offset) ;
+			this.y = this.centrey + this.rayony*Math.sin(this.angle+this.offset) ;
+			this.angle += this.offset % (Math.PI*2) ;
+		}
 	}
-}
 	   
 	   
-	   function do_triangles() {
-
-
-	for (i=160/12;i<160;i+=160/6) {
-	// haut
-		mycanvasSmall.triangle(i,0,i+(160/12),0,myrond2.x,myrond2.y,'#102073') ;
-	
-	// bas
-		mycanvasSmall.triangle(i,480,i+(160/12),480,myrond2.x,myrond2.y,'#102073') ;
-
+	function do_triangles() {
+		for (i=160/12;i<160;i+=160/6) {
+			// haut
+			mycanvasSmall.triangle(i,0,i+(160/12),0,myrond2.x,myrond2.y,'#102073') ;
+			// bas
+			mycanvasSmall.triangle(i,480,i+(160/12),480,myrond2.x,myrond2.y,'#102073') ;
+		}
+		for (i=480/12;i<480;i+=480/6) {
+			// gauche	
+			mycanvasSmall.triangle(0,i,0,i+(480/12),myrond2.x,myrond2.y,'#102073') ;
+			// droite	
+			mycanvasSmall.triangle(160,i,160,i+(480/12),myrond2.x,myrond2.y,'#102073') ;
+		}
 	}
-
-	for (i=480/12;i<480;i+=480/6) {
-	// gauche	
-		mycanvasSmall.triangle(0,i,0,i+(480/12),myrond2.x,myrond2.y,'#102073') ;
-	// droite	
-		mycanvasSmall.triangle(160,i,160,i+(480/12),myrond2.x,myrond2.y,'#102073') ;
-	}
-}
 	             
-	 function init(){
+	var fov=150; var sa=0; var ldp=[]; var fcount=0; var counter=0; var printcount=0; var xsin=0; var ysin=0;
+	var gc=[{color: 'rgb(0,0,255)',offset:0},{color: 'rgb(0,0,00)',offset:1}];
+	var gc2=[{color: 'rgb(0,80,255)', offset:0},{color: 'rgb(0,0,00)',offset:1}];
+	var fontimage=new image('marmorfont32x29.png');
+	var rastimage=new image('DF_rast.png');
+	var sct=" HELLO AND WELLCOME TO THE UGLY SCREEN...  THIS IS JUST FOR A CONTEST WHERE THE JS FILE SHOULD BE UNDER FOUR KB, THIS SCREEN JS FILE IS AROUND THREE KB... CU NEXT TIME.    ";
+	
+	function sinus(size,speed){
+		var sinus=Math.floor(size*Math.sin(sa*speed)+size)
+		return sinus;
+	}
+	    
+	function init(){
 				 
 		font.initTile(32,32,20);
 		font2.initTile(32,32,20);
