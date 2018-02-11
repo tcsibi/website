@@ -393,7 +393,7 @@
 		}
 		
 		if( pos == 125 ) { 
-			scene.add(cubeSrGroup); cubesOn = 1;
+			scene.add(cubeSrGroup); cubesOn = 1; ballStep = 1;
 		}
 	}
 		 
@@ -409,23 +409,40 @@
 	myrond2.movenext() ;
 	verttext.draw(20);
 	
-	//cxcos= cx + 300 * Math.cos(logoAngle/1.5);
-	//cycos= cy + 80  * Math.sin(logoAngle/1.5*2);
-	var points = new Array();
-	for (var i=0; i < 18; i++){
-		ballx = (60 * Math.cos((dotsiny+i*360/18)*Math.PI/180)) + 80 - 8;
-		bally = (60 * Math.sin((dotsiny+i*360/18)*Math.PI/180)) + 240 - 8;
-		
-		ballx += Math.cos(2*dotsiny*Math.PI/180) * 40;
-		bally += Math.sin(dotsiny*Math.PI/180) * 190;
-		
-		if(ballx > 144) ballx = 144;
-		if(ballx < 0) ballx = 0;
-		if(bally > 464) bally = 464;
-		if(bally < 0) bally = 0; 
-		points[i] = {x:ballx,y:bally};
-	}		 
-	dotsiny = (dotsiny+1)%360;
+
+	var points = new Array(), ballStep, ballDia;
+	if(ballStep == 0)
+	{
+		ballDia = 300;		 
+	}	 
+	if(ballStep == 1)
+	{
+		for (var i=0; i < 18; i++){
+			ballx = (ballDia * Math.cos((dotsiny+i*360/18)*Math.PI/180)) + 80 - 8;
+			bally = (ballDia * Math.sin((dotsiny+i*360/18)*Math.PI/180)) + 240 - 8;
+ 
+			points[i] = {x:ballx,y:bally};
+			
+			if(--ballDia == 60) {ballStep = 2;}
+		}		 
+	}	 
+	if(ballStep == 2)
+	{
+		for (var i=0; i < 18; i++){
+			ballx = (60 * Math.cos((dotsiny+i*360/18)*Math.PI/180)) + 80 - 8;
+			bally = (60 * Math.sin((dotsiny+i*360/18)*Math.PI/180)) + 240 - 8;
+
+			ballx += Math.cos(2*dotsiny*Math.PI/180) * 40;
+			bally += Math.sin(dotsiny*Math.PI/180) * 190;
+
+			if(ballx > 144) ballx = 144;
+			if(ballx < 0) ballx = 0;
+			if(bally > 464) bally = 464;
+			if(bally < 0) bally = 0; 
+			points[i] = {x:ballx,y:bally};
+		}		 
+		dotsiny = (dotsiny+1)%360;
+	}
 		
 		
 	mycanvasSmall.line( points[0].x+8, points[0].y+8,points[6].x+8, points[6].y+8, 3, "#b38ee8" );
