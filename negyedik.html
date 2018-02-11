@@ -517,6 +517,8 @@
 	}	 
 	if(ballStep == 1)
 	{
+		document.getElementById('cntfi').className = 'contentFO';
+		
 		for (var i=0; i < 18; i++){
 			ballx = (ballDia * Math.cos((dotsiny+i*360/18)*Math.PI/180)) + 80 - 8;
 			bally = (ballDia * Math.sin((dotsiny+i*360/18)*Math.PI/180)) + 240 - 8;
@@ -652,5 +654,25 @@
     opacity: 1;
   }
 }
+
+.contentFO {
+  animation-name: contentFadeOut;
+  animation-duration: 3s;
+}
+
+@keyframes contentFadeOut {
+  0% {
+    opacity: 1;
+  }
+  
+    50% {
+    opacity: 0.5;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+	
 	
 </style>
