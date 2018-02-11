@@ -320,13 +320,9 @@
 			createCubeSr(cubeSr, cubeSrObj,true,false);
 		}
 		for (j = 0; j < cubeSrGroup.children.length; j++) {
-
-			if(j%i){
-				cubeSrGroup.children[j].position.z=(-120*j) - 300;
-			}else
-				cubeSrGroup.children[j].position.z=(-80*j) - 300;
-				cubeSrGroup.children[j].position.x=Math.floor(Math.random()*101)-50;
-				cubeSrGroup.children[j].position.y=Math.floor(Math.random()*101)-50;
+			cubeSrGroup.children[j].position.z=(-50*j) - 300;
+			cubeSrGroup.children[j].position.x=Math.floor(Math.random()*101)-50;
+			cubeSrGroup.children[j].position.y=Math.floor(Math.random()*101)-50;
 		}
 		//scene.add(cubeSrGroup);
 		cubeSrGroup.position.z=-300;
