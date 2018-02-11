@@ -181,7 +181,7 @@
 
 	//var myobj = new Array();
 	var myobjvert = new Array();
-      myobjvert=[{x:-1, y:-1, z:-1, img:0},
+	myobjvert=[{x:-1, y:-1, z:-1, img:0},
 		 {x: 1, y:-1, z:-1, img:1},
 		 {x: 1, y: 1, z:-1, img:2},
 		 {x:-1, y: 1, z:-1, img:3},
@@ -334,13 +334,47 @@
 		//scene.add(cubeSrGroup);
 		cubeSrGroup.position.z=-300;
 
-		 mycanvasSmall=new canvas(160,480,"navigation");
-		 mycanvasSmall.fill('#000000');
-		 myrond2 = new rond(160/2,244,190,160,0.077) ;
-		 verttext.init(mycanvasSmall,vertfont,1);	
+		mycanvasSmall=new canvas(160,480,"navigation");
+		mycanvasSmall.fill('#000000');
+		myrond2 = new rond(160/2,244,190,160,0.077) ;
+		verttext.init(mycanvasSmall,vertfont,1);
+		
 
-		 go();
-	 }
+		chc=new canvas(640+192,640+192);
+		cec=new canvas(640,320);
+		scc=new canvas(600,600);
+		tmpc=new canvas(600,600);
+		erc=new canvas(32,32);
+		fontimage.initTile(32,29,32);
+		scc.setmidhandle();
+		tmpc.setmidhandle();
+		mc.contex.imageSmoothingEnabled = false;
+		mc.contex.mozImageSmoothingEnabled = false; 
+		mc.contex.oImageSmoothingEnabled = false;
+		mc.contex.globalCompositeOperation='source-atop';
+		mc.quad(0,0,320,198,'#000050');
+		mc.contex.globalCompositeOperation='source-over';
+		st = new scrolltext_horizontal();
+		st.scrtxt=sct;
+		st.init(cec,fontimage,2);
+		mg=new grad(cec,gc);
+		mg2=new grad(cec,gc2);
+		for(var j=0; j<30; j++){
+			for(var i=0; i<30; i++){
+				chc.quad(i*64+(j*32)%64,j*32,32,32,'#FF0000');
+			}
+		}
+		chc.setmidhandle();
+		var savey=0;
+		for(var i=0; i<320;i++){
+			var scale = fov / (fov + i);
+			var x2d = Math.round(i * scale*2.15);
+			var y2d = Math.round((i+0) * scale);
+			ldp.push({x: x2d, y: y2d, s: scale+0.17});
+		}
+
+ 		go();
+	}
 
 	 function go(){
 	 mycanvas.fill('#000000');
