@@ -17,6 +17,7 @@
 	    
 	var ball8 = new image('ball8.png');
 	var ball82 = new image('ball82.png');
+	var dotsiny = 0;
 	    
 	var ribObjvert = new Array();
 	myobjvert=[
@@ -47,9 +48,6 @@
 	];
 
 	mylines=new Array();
-	    
-	    
-	    
 	    
 	var flash = 0, cubesOn = 0;
 	    
@@ -417,14 +415,16 @@
 	for (var i=0; i < 18; i++){
 		ballx = (60 * Math.cos((i*360/18)*Math.PI/180)) + 80 - 8;
 		bally = (60 * Math.sin((i*360/18)*Math.PI/180)) + 240 - 8;
-		
+		bally += Math.sin(dotsiny*Math.PI/180)) * 100;
 		//if(ballx > 624) ballx = 624;
 		//if(ballx < 0) ballx = 0;
 		//if(bally > 342) bally = 342;
 		//if(bally < 140) bally = 140; 
 		points[i] = {x:ballx,y:bally};
 	}		 
-		 
+	dotsiny = (dotsiny++)%360;
+		
+		
 	mycanvasSmall.line( points[0].x+8, points[0].y+8,points[6].x+8, points[6].y+8, 3, "#b38ee8" );
 	mycanvasSmall.line( points[6].x+8, points[6].y+8,points[12].x+8, points[12].y+8, 3, "#b38ee8" );
 	mycanvasSmall.line( points[12].x+8, points[12].y+8,points[0].x+8, points[0].y+8, 3, "#b38ee8" );	 
