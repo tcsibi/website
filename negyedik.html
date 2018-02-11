@@ -348,12 +348,6 @@
 		fontimage.initTile(32,29,32);
 		scc.setmidhandle();
 		tmpc.setmidhandle();
-		mc.contex.imageSmoothingEnabled = false;
-		mc.contex.mozImageSmoothingEnabled = false; 
-		mc.contex.oImageSmoothingEnabled = false;
-		mc.contex.globalCompositeOperation='source-atop';
-		mc.quad(0,0,320,198,'#000050');
-		mc.contex.globalCompositeOperation='source-over';
 		st = new scrolltext_horizontal();
 		st.scrtxt=sct;
 		st.init(cec,fontimage,2);
@@ -376,67 +370,132 @@
  		go();
 	}
 
-	 function go(){
-	 mycanvas.fill('#000000');
-				 
-
-	if(groupBall.position.z < 1700)
-	{
-		groupBall.rotation.x+=0.01;
-		groupBall.rotation.y+=0.02;
-		groupBall.rotation.z+=0.04;
-
-		if(ballstrtflg==1){groupBall.position.z+=10;}
+	function go(){
+	
+		mycanvas.fill('#000000');
 		
-		rendererBall.render( sceneBall, cameraBall );
-		mycanvas.contex.drawImage(rendererBall.domElement,0,0);
-	}
-	else
-	{
-		rot = 0.2 + 4 * Math.sin(angle);
-		angle+=0.03;
-		GL_Canvas.render( scene, camera );
-		texture.offset.y	+= 0.05;
-		texture.offset.x	= rot;
-		texture.needsUpdate	= true;
 		
-		if( (flash==20) || (flash==40) || (flash==60) || (flash==80) || (flash==90) || (flash>=110) ) 
-		{ 
-			mycanvas.contex.drawImage(GL_Canvas.domElement,0,0);
+		
+		mycanvas.contex.imageSmoothingEnabled = false; mc.contex.mozImageSmoothingEnabled = false; mc.contex.oImageSmoothingEnabled = false;
+		mycanvas.contex.globalCompositeOperation='source-atop';
+		mycanvas.quad(0,0,320,198,'#000050');
+		mycanvas.contex.globalCompositeOperation='source-over';				 
+
+
+		cec.clear();
+		sa++;
+		var xsin=sinus(400, 0.01) % 64;
+		var ysin=sinus(300, 0.015) % 64;
+		var rotsin=sinus(1360, 0.005)*0.1;
+		chc.drawPart(cec,320,240,xsin,ysin,640+160,640+160,1,rotsin,1,1);
+		cec.contex.globalCompositeOperation='source-atop';
+		mg.drawH();
+		cec.contex.globalCompositeOperation='destination-atop';
+		mg2.drawH();
+		cec.contex.globalCompositeOperation='source-over';
+		st.draw(sinus(100, 0.02));
+		var savey=0;
+		for(var i=0; i<ldp.length;i++){
+			if(ldp[i].y!=savey)
+				cec.drawPart(mycanvas,ldp[i].x,ldp[i].y,0,i,640,1,1,0,ldp[i].s,1);
+			savey=ldp[i].y;
 		}
-		if( flash < 110 ) { flash++; }
+		mycanvas.drawPart(mycanvas,0,600,200,0,400,100,1,0,2.5,-2.5);
+		mycanvas.drawPart(mycanvas,0,0,200,0,400,100,1,0,2.5,2.5);
+		fontimage.print(mycanvas,"NEW CORE",120+sinus(150, 0.02),280);
+		if(fcount==0){
+			tmpc.clear();
+			fontimage.print(tmpc,sct.charAt(printcount%sct.length),316,568,1,0,-1,-1);
+			tmpc.contex.globalCompositeOperation='source-atop';
+			rastimage.drawPart(tmpc,284,539,0,printcount%382,1,1,1,0,32,29);
+			tmpc.contex.globalCompositeOperation='source-over';
+			tmpc.draw(scc,300,300,1,counter,1,1);
+			printcount++;
+			tmpc.clear();
+			scc.draw(tmpc,300,300,1,0,0.995,0.995);
+			scc.clear();
+			tmpc.draw(scc,300,300);
+		}
+		xsin=sinus(200, 0.008)-200;
+		ysin=sinus(180,0.005)-180;
+		mycanvas.drawPart(erc,0,0,400-16+xsin,537+ysin,32,32,1,0,1,1);
+		scc.draw(mc,400+xsin,300+ysin,1,0-counter,1,1);
+		erc.draw(mc,400-16+xsin,537+ysin);
+		counter++;
+		fcount++;
+		if(fcount>8) {	fcount=0; }	
+
+
+
+
 		
-		if( cubesOn == 1 )
+		
+		
+		
+
+
+		if(0)//if(groupBall.position.z < 1700)
 		{
-			for (j = 0; j < cubeSrGroup.children.length; j++) {
-				cubeSrGroup.children[j].rotation.z+=0.05;
-				cubeSrGroup.children[j].rotation.x+=0.03;
+			groupBall.rotation.x+=0.01;
+			groupBall.rotation.y+=0.02;
+			groupBall.rotation.z+=0.04;
 
-				if((cubeSrGroup.children[j].position.z+=1.3)>=340)cubeSrGroup.children[j].position.z=-200;
-			}		
+			if(ballstrtflg==1){groupBall.position.z+=10;}
+
+			rendererBall.render( sceneBall, cameraBall );
+			mycanvas.contex.drawImage(rendererBall.domElement,0,0);
+		}
+		if(0)//else
+		{
+			rot = 0.2 + 4 * Math.sin(angle);
+			angle+=0.03;
+			GL_Canvas.render( scene, camera );
+			texture.offset.y	+= 0.05;
+			texture.offset.x	= rot;
+			texture.needsUpdate	= true;
+
+			if( (flash==20) || (flash==40) || (flash==60) || (flash==80) || (flash==90) || (flash>=110) ) 
+			{ 
+				mycanvas.contex.drawImage(GL_Canvas.domElement,0,0);
+			}
+			if( flash < 110 ) { flash++; }
+
+			if( cubesOn == 1 )
+			{
+				for (j = 0; j < cubeSrGroup.children.length; j++) {
+					cubeSrGroup.children[j].rotation.z+=0.05;
+					cubeSrGroup.children[j].rotation.x+=0.03;
+
+					if((cubeSrGroup.children[j].position.z+=1.3)>=340)cubeSrGroup.children[j].position.z=-200;
+				}		
+			}
+		
+		
+			for(var i=0;i<=23;i++){
+				ad[i] = (ad[i]+1)%360; 
+				rot = (rot+1)%360;
+				var newn = ad[i];
+				var x = -Math.sin(newn*Math.PI/180)*200 + 320 - 16;
+				var y = Math.cos(newn*Math.PI/180)*300 + 240 - 16;
+
+				font2.drawTile(mycanvas,letr[i]-20,x+4,y+4,1,rot,1,1);
+				font.drawTile(mycanvas,letr[i]-20,x,y,1,rot,1,1);
+
+				if(ad[i]==180){
+					letr[i]=text.charCodeAt(pos);
+					if(++pos >= text.length) {pos=0;}
+				} 
+			}
+
+			if( pos == 125 ) { 
+				scene.add(cubeSrGroup); cubesOn = 1; ballStep = 1;
+			}
 		}
 		
 		
-		for(var i=0;i<=23;i++){
-			ad[i] = (ad[i]+1)%360; 
-			rot = (rot+1)%360;
-			var newn = ad[i];
-			var x = -Math.sin(newn*Math.PI/180)*200 + 320 - 16;
-			var y = Math.cos(newn*Math.PI/180)*300 + 240 - 16;
-
-			font2.drawTile(mycanvas,letr[i]-20,x+4,y+4,1,rot,1,1);
-			font.drawTile(mycanvas,letr[i]-20,x,y,1,rot,1,1);
-
-			if(ad[i]==180){
-				letr[i]=text.charCodeAt(pos);
-				if(++pos >= text.length) {pos=0;}
-			} 
-		}
 		
-		if( pos == 125 ) { 
-			scene.add(cubeSrGroup); cubesOn = 1; ballStep = 1;
-		}
-	}
+		
+		
 		 
 	canvasBanner.fill('#000000');
 	mystarfield.draw();
@@ -449,7 +508,6 @@
 	do_triangles() ;
 	myrond2.movenext() ;
 	verttext.draw(20);
-	
 
 	var points = new Array();
 	if(ballStep == 0)
