@@ -433,9 +433,22 @@
 			if( pos == 125 ) { 
 				scene.add(cubeSrGroup); cubesOn = 1; ballStep = 1;
 			}
+			
+			if( cntGo >= 1000 ) { 
+				mainStep = 3;
+			}			
 		}
-		if(mainStep == 3)
+		
+		if(mainStep == 3) { 
+			document.getElementById('cntfi').className = 'hidden';
+			if( cntGo >= 1200 ) { 
+				mainStep = 4;
+			}
+		}		
+		
+		if(mainStep == 4)
 		{
+			document.getElementById('cntfi').className = 'visible';
 			mycanvas.contex.imageSmoothingEnabled = false; mycanvas.contex.mozImageSmoothingEnabled = false; mycanvas.contex.oImageSmoothingEnabled = false;
 			mycanvas.contex.globalCompositeOperation='source-atop';
 			mycanvas.quad(0,0,320,198,'#000050');
@@ -504,8 +517,6 @@
 	}	 
 	if(ballStep == 1)
 	{
-		document.getElementById('cntfi').className = 'contentFO';
-		
 		for (var i=0; i < 18; i++){
 			ballx = (ballDia * Math.cos((dotsiny+i*360/18)*Math.PI/180)) + 80 - 8;
 			bally = (ballDia * Math.sin((dotsiny+i*360/18)*Math.PI/180)) + 240 - 8;
