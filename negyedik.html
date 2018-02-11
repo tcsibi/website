@@ -419,6 +419,9 @@
 		for (var i=0; i < 18; i++){
 			ballx = (ballDia * Math.cos((dotsiny+i*360/18)*Math.PI/180)) + 80 - 8;
 			bally = (ballDia * Math.sin((dotsiny+i*360/18)*Math.PI/180)) + 240 - 8;
+			
+			ballx += Math.cos(2*dotsiny*Math.PI/180) * 40;
+			bally += Math.sin(dotsiny*Math.PI/180) * 190;
  
 			points[i] = {x:ballx,y:bally};
 		}	
