@@ -19,7 +19,7 @@
 	    
 	var ball8 = new image('ball8.png');
 	var ball82 = new image('ball82.png');
-	var dotsiny = 0, ballStep = 0, ballDia = 500;
+	var dotsiny = 0, ballStep = 0, ballDia = 500, mainStep = 0;
 	    
 	var ribObjvert = new Array();
 	myobjvert=[
@@ -375,79 +375,20 @@
 	function go(){
 	
 		mycanvas.fill('#000000');
-		
-		
-		
-		mycanvas.contex.imageSmoothingEnabled = false; mycanvas.contex.mozImageSmoothingEnabled = false; mycanvas.contex.oImageSmoothingEnabled = false;
-		mycanvas.contex.globalCompositeOperation='source-atop';
-		mycanvas.quad(0,0,320,198,'#000050');
-		mycanvas.contex.globalCompositeOperation='source-over';				 
 
-
-		cec.clear();
-		sa++;
-		var xsin=sinus(400, 0.01) % 64;
-		var ysin=sinus(300, 0.015) % 64;
-		var rotsin=sinus(1360, 0.005)*0.1;
-		chc.drawPart(cec,320,240,xsin,ysin,640+160,640+160,1,rotsin,1,1);
-		cec.contex.globalCompositeOperation='source-atop';
-		mg.drawH();
-		cec.contex.globalCompositeOperation='destination-atop';
-		mg2.drawH();
-		cec.contex.globalCompositeOperation='source-over';
-		st.draw(sinus(100, 0.02));
-		var savey=0;
-		for(var i=0; i<ldp.length;i++){
-			if(ldp[i].y!=savey)
-				cec.drawPart(mycanvas,ldp[i].x,ldp[i].y,0,i,640,1,1,0,ldp[i].s,1);
-			savey=ldp[i].y;
-		}
-		mycanvas.drawPart(mycanvas,0,600,200,0,400,100,1,0,2.5,-2.5);
-		mycanvas.drawPart(mycanvas,0,0,200,0,400,100,1,0,2.5,2.5);
-		fontimage.print(mycanvas,"MAD DADDY",120+sinus(150, 0.02),280);
-		if(fcount==0){
-			tmpc.clear();
-			fontimage.print(tmpc,sct.charAt(printcount%sct.length),316,568,1,0,-1,-1);
-			tmpc.contex.globalCompositeOperation='source-atop';
-			rastimage.drawPart(tmpc,284,539,0,printcount%382,1,1,1,0,32,29);
-			tmpc.contex.globalCompositeOperation='source-over';
-			tmpc.draw(scc,300,300,1,counter,1,1);
-			printcount++;
-			tmpc.clear();
-			scc.draw(tmpc,300,300,1,0,0.995,0.995);
-			scc.clear();
-			tmpc.draw(scc,300,300);
-		}
-		xsin=sinus(200, 0.008)-200;
-		ysin=sinus(180,0.005)-180;
-		mycanvas.drawPart(erc,0,0,400-16+xsin,537+ysin,32,32,1,0,1,1);
-		scc.draw(mycanvas,400+xsin,300+ysin,1,0-counter,1,1);
-		erc.draw(mycanvas,400-16+xsin,537+ysin);
-		counter++;
-		fcount++;
-		if(fcount>8) {	fcount=0; }	
-
-
-
-
-		
-		
-		
-		
-
-
-		if(0)//if(groupBall.position.z < 1700)
+		if(mainStep == 0)
 		{
 			groupBall.rotation.x+=0.01;
 			groupBall.rotation.y+=0.02;
 			groupBall.rotation.z+=0.04;
 
-			if(ballstrtflg==1){groupBall.position.z+=10;}
+			if(ballstrtflg==1){ groupBall.position.z+=10; }
+			if(groupBall.position.z >= 1700){ mainStep = 1; }
 
 			rendererBall.render( sceneBall, cameraBall );
 			mycanvas.contex.drawImage(rendererBall.domElement,0,0);
 		}
-		if(0)//else
+		if(mainStep == 1)
 		{
 			rot = 0.2 + 4 * Math.sin(angle);
 			angle+=0.03;
@@ -493,11 +434,57 @@
 				scene.add(cubeSrGroup); cubesOn = 1; ballStep = 1;
 			}
 		}
-		
-		
-		
-		
-		
+		if(mainStep == 3)
+		{
+			mycanvas.contex.imageSmoothingEnabled = false; mycanvas.contex.mozImageSmoothingEnabled = false; mycanvas.contex.oImageSmoothingEnabled = false;
+			mycanvas.contex.globalCompositeOperation='source-atop';
+			mycanvas.quad(0,0,320,198,'#000050');
+			mycanvas.contex.globalCompositeOperation='source-over';				 
+
+
+			cec.clear();
+			sa++;
+			var xsin=sinus(400, 0.01) % 64;
+			var ysin=sinus(300, 0.015) % 64;
+			var rotsin=sinus(1360, 0.005)*0.1;
+			chc.drawPart(cec,320,240,xsin,ysin,640+160,640+160,1,rotsin,1,1);
+			cec.contex.globalCompositeOperation='source-atop';
+			mg.drawH();
+			cec.contex.globalCompositeOperation='destination-atop';
+			mg2.drawH();
+			cec.contex.globalCompositeOperation='source-over';
+			st.draw(sinus(100, 0.02));
+			var savey=0;
+			for(var i=0; i<ldp.length;i++){
+				if(ldp[i].y!=savey)
+					cec.drawPart(mycanvas,ldp[i].x,ldp[i].y,0,i,640,1,1,0,ldp[i].s,1);
+				savey=ldp[i].y;
+			}
+			mycanvas.drawPart(mycanvas,0,600,200,0,400,100,1,0,2.5,-2.5);
+			mycanvas.drawPart(mycanvas,0,0,200,0,400,100,1,0,2.5,2.5);
+			fontimage.print(mycanvas,"MAD DADDY",120+sinus(150, 0.02),280);
+			if(fcount==0){
+				tmpc.clear();
+				fontimage.print(tmpc,sct.charAt(printcount%sct.length),316,568,1,0,-1,-1);
+				tmpc.contex.globalCompositeOperation='source-atop';
+				rastimage.drawPart(tmpc,284,539,0,printcount%382,1,1,1,0,32,29);
+				tmpc.contex.globalCompositeOperation='source-over';
+				tmpc.draw(scc,300,300,1,counter,1,1);
+				printcount++;
+				tmpc.clear();
+				scc.draw(tmpc,300,300,1,0,0.995,0.995);
+				scc.clear();
+				tmpc.draw(scc,300,300);
+			}
+			xsin=sinus(200, 0.008)-200;
+			ysin=sinus(180,0.005)-180;
+			mycanvas.drawPart(erc,0,0,400-16+xsin,537+ysin,32,32,1,0,1,1);
+			scc.draw(mycanvas,400+xsin,300+ysin,1,0-counter,1,1);
+			erc.draw(mycanvas,400-16+xsin,537+ysin);
+			counter++;
+			fcount++;
+			if(fcount>8) {	fcount=0; }				
+		}	
 		 
 	canvasBanner.fill('#000000');
 	mystarfield.draw();
