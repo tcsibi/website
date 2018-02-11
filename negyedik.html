@@ -441,15 +441,15 @@
 			if(bally > 464) bally = 464;
 			if(bally < 0) bally = 0; 
 			points[i] = {x:ballx,y:bally};
+			
+			mycanvasSmall.line( points[0].x+8, points[0].y+8,points[6].x+8, points[6].y+8, 3, "#b38ee8" );
+			mycanvasSmall.line( points[6].x+8, points[6].y+8,points[12].x+8, points[12].y+8, 3, "#b38ee8" );
+			mycanvasSmall.line( points[12].x+8, points[12].y+8,points[0].x+8, points[0].y+8, 3, "#b38ee8" );	
 		}		 
 		dotsiny = (dotsiny+1)%360;
 	}
 	if(ballStep != 0)
 	{
-		mycanvasSmall.line( points[0].x+8, points[0].y+8,points[6].x+8, points[6].y+8, 3, "#b38ee8" );
-		mycanvasSmall.line( points[6].x+8, points[6].y+8,points[12].x+8, points[12].y+8, 3, "#b38ee8" );
-		mycanvasSmall.line( points[12].x+8, points[12].y+8,points[0].x+8, points[0].y+8, 3, "#b38ee8" );	 
-
 		for (var i=0; i < 18; i++){
 			if(i%6==0) 
 				ball82.draw(mycanvasSmall,points[i].x, points[i].y);
