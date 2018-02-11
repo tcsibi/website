@@ -15,7 +15,9 @@
     <script src="codef_3d.js"></script>   
     <script> 
 	    
-	
+	var ball8 = new image(basepath + 'ball8.png');
+	var ball82 = new image(basepath + 'ball82.png');
+	    
 	var ribObjvert = new Array();
 	myobjvert=[
 		{x:-1, y:1, z: 1},
@@ -401,15 +403,38 @@
 	mystarfield.draw();
 	myimage.draw(canvasBanner,myimageX,20);
 	myimageX+=myimageMove;
-	if(myimageX>800-myimage.img.width)
-	myimageMove=-1;
-	if(myimageX<0)
-	myimageMove=1;	
+	if(myimageX>800-myimage.img.width) myimageMove=-1;
+	if(myimageX<0) myimageMove=1;	
 
 	mycanvasSmall.fill('#002042');
 	do_triangles() ;
 	myrond2.movenext() ;
 	verttext.draw(20);
+	
+	//cxcos= cx + 300 * Math.cos(logoAngle/1.5);
+	//cycos= cy + 80  * Math.sin(logoAngle/1.5*2);
+	var points = new Array();
+	for (var i=0; i < 18; i++){
+		ballx = 100 * Math.cos((i*360/18)*Math.PI/180);
+		bally = 100 * Math.sin((i*360/18)*Math.PI/180);
+		
+		//if(ballx > 624) ballx = 624;
+		//if(ballx < 0) ballx = 0;
+		//if(bally > 342) bally = 342;
+		//if(bally < 140) bally = 140; 
+		points[i] = {x:ballx,y:bally};
+	}		 
+		 
+	mycanvasSmall.line( points[0].x+8, points[0].y+8,points[6].x+8, points[6].y+8, 3, "#b38ee8" );
+	mycanvasSmall.line( points[6].x+8, points[6].y+8,points[12].x+8, points[12].y+8, 3, "#b38ee8" );
+	mycanvasSmall.line( points[12].x+8, points[12].y+8,points[0].x+8, points[0].y+8, 3, "#b38ee8" );	 
+		 
+	for (var i=0; i < 18; i++){
+		if(i%6==0) 
+			ball82.draw(mycanvasSmall,points[i].x, points[i].y);
+		else
+			ball8.draw(mycanvasSmall,points[i].x, points[i].y);
+	}		 
 
 	requestAnimFrame( go );
 	}	  
