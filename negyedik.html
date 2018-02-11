@@ -359,11 +359,11 @@
 		texture.offset.x	= rot;
 		texture.needsUpdate	= true;
 		
-		if( (flash==20) || (flash==40) || (flash==60) || (flash>=70) ) 
+		if( (flash==20) || (flash==40) || (flash==60) || (flash==80) || (flash==90) || (flash>=110) ) 
 		{ 
 			mycanvas.contex.drawImage(GL_Canvas.domElement,0,0);
 		}
-		if( flash < 70 ) { flash++; }
+		if( flash < 110 ) { flash++; }
 		
 		if( cubesOn == 1 )
 		{
