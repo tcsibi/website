@@ -421,8 +421,8 @@
 		xsin=sinus(200, 0.008)-200;
 		ysin=sinus(180,0.005)-180;
 		mycanvas.drawPart(erc,0,0,400-16+xsin,537+ysin,32,32,1,0,1,1);
-		scc.draw(mc,400+xsin,300+ysin,1,0-counter,1,1);
-		erc.draw(mc,400-16+xsin,537+ysin);
+		scc.draw(mycanvas,400+xsin,300+ysin,1,0-counter,1,1);
+		erc.draw(mycanvas,400-16+xsin,537+ysin);
 		counter++;
 		fcount++;
 		if(fcount>8) {	fcount=0; }	
