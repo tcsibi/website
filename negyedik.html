@@ -413,8 +413,8 @@
 	//cycos= cy + 80  * Math.sin(logoAngle/1.5*2);
 	var points = new Array();
 	for (var i=0; i < 18; i++){
-		ballx = (60 * Math.cos(((i+dotsiny)*360/18)*Math.PI/180)) + 80 - 8;
-		bally = (60 * Math.sin(((i+dotsiny)*360/18)*Math.PI/180)) + 240 - 8;
+		ballx = (60 * Math.cos((dotsiny+i*360/18)*Math.PI/180)) + 80 - 8;
+		bally = (60 * Math.sin((dotsiny+i*360/18)*Math.PI/180)) + 240 - 8;
 		
 		ballx += Math.cos(dotsiny*Math.PI/180) * 50;
 		bally += Math.sin(dotsiny*Math.PI/180) * 190;
