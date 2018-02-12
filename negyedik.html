@@ -156,7 +156,11 @@
 	var fast2 = new Modplayer();	 
 	fast2.onReady=function(){fast2.play()}
 	fast2.repeat=false;
-	fast2.load('hmd3.mod'); 	
+	fast2.load('hmd3.mod'); 
+		
+	var fast3 = new Modplayer();	 
+	fast3.repeat=false;
+	fast3.load('MentalDelivrance.xm'); 
 	  
 	var GL_Canvas;
 	var scene = new THREE.Scene();
@@ -564,7 +568,7 @@
 			
 			mycanvas.contex.globalCompositeOperation="lighter";
 			
-			fast2.load('MentalDelivrance.xm'); 
+			fast3.play();
 			mycanvasFont.clear();
 			mycanvasLogo.clear();
 	
@@ -617,13 +621,13 @@
 				mycanvasC1.draw(mycanvas,x1,y1,0.6);
 				mycanvasC2.draw(mycanvas,x2,y2,0.6);
 			}
-			if((fast2.position == 10 || fast2.position == 11 || fast2.position == 23 || fast2.position == 24)){
+			if((fast3.position == 10 || fast3.position == 11 || fast3.position == 23 || fast3.position == 24)){
 				delaymaster--;
 				changeColor(mycanvasC1,get_random_color());
 				changeColor(mycanvasC2,get_random_color());
-				if(fast2.row > 61){
+				if(fast3.row > 61){
 					changeColor(mycanvasC1,'#003300');
-				changeColor(mycanvasC2,'#0000ff');
+					changeColor(mycanvasC2,'#0000ff');
 				}
 			if(delaymaster <= -2) delaymaster = 3;
 			}else{
