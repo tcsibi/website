@@ -252,6 +252,7 @@
 	var dance = new image('girl.png');
 	var logo = new image('dagon.png');
 	var bigfont = new image('bigfont.png');
+	var scrolltexta = new scrolltext_horizontal(); 
 		
 	var txt = "     DAGON OF RAM JAM PRESENTS A NEW DEMO: HAPPY VALENTINE'S DAY!          THIS DEMO WAS INSPIRED BY THIS MEGATUNE: MENTAL DELIVRANCE           AND IT'S DEDICATED TO ALL LOVERS          SEE YA AT THE NEXT RELEASE          ";		
 	 
@@ -398,7 +399,6 @@
   		mycanvasC1 = new canvas(1800,800);
  		mycanvasC2 = new canvas(1800,800);
 		
-		var scrolltexta = new scrolltext_horizontal(); 
 		bigfont.initTile(96,96,32);
 		scrolltexta.scrtxt = txt;
 		scrolltexta.init(mycanvasFont,bigfont,3);
